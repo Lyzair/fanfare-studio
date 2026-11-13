@@ -10,11 +10,22 @@ from dataclasses import dataclass, field
 LEAD_TRAIL_LIMIT_S = 0.4
 
 
-def normalize_words(text: str) -> list[str]:
-    """Lower-case, strip punctuation, NFC; digits stay digits."""
+_NUMBERS = {
+    "en": "zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen "
+          "fifteen sixteen seventeen eighteen nineteen twenty",
+    "de": "null eins zwei drei vier fünf sechs sieben acht neun zehn elf zwölf dreizehn vierzehn "
+          "fünfzehn sechzehn siebzehn achtzehn neunzehn zwanzig",
+}  # fmt: skip
+NUMBER_WORDS = {lang: {w: str(i) for i, w in enumerate(words.split())} for lang, words in _NUMBERS.items()}
+NUMBER_WORDS["de"]["ein"] = "1"
+
+
+def normalize_words(text: str, lang: str | None = None) -> list[str]:
+    """Lower-case, strip punctuation, NFC; number words 0-20 → digits ("seven" = "7")."""
     text = unicodedata.normalize("NFC", text.lower())
     text = re.sub(r"[^\w\s']|_", " ", text)
-    return text.split()
+    nums = NUMBER_WORDS.get(lang or "", {})
+    return [nums.get(w, w) for w in text.split()]
 
 
 def _edit_distance(a: list, b: list) -> int:
@@ -27,19 +38,19 @@ def _edit_distance(a: list, b: list) -> int:
     return prev[-1]
 
 
-def wer(ref: str, hyp: str) -> float:
-    r, h = normalize_words(ref), normalize_words(hyp)
+def wer(ref: str, hyp: str, lang: str | None = None) -> float:
+    r, h = normalize_words(ref, lang), normalize_words(hyp, lang)
     return _edit_distance(r, h) / max(1, len(r))
 
 
-def cer(ref: str, hyp: str) -> float:
-    r, h = " ".join(normalize_words(ref)), " ".join(normalize_words(hyp))
+def cer(ref: str, hyp: str, lang: str | None = None) -> float:
+    r, h = " ".join(normalize_words(ref, lang)), " ".join(normalize_words(hyp, lang))
     return _edit_distance(list(r), list(h)) / max(1, len(r))
 
 
-def word_diff(ref: str, hyp: str) -> tuple[list[str], list[str], list[str]]:
+def word_diff(ref: str, hyp: str, lang: str | None = None) -> tuple[list[str], list[str], list[str]]:
     """(extra words in hyp, missing words from ref, extra words BEFORE the first matched word)."""
-    r, h = normalize_words(ref), normalize_words(hyp)
+    r, h = normalize_words(ref, lang), normalize_words(hyp, lang)
     extra, missing, leading = [], [], []
     seen_match = False
     for op, i1, i2, j1, j2 in difflib.SequenceMatcher(a=r, b=h, autojunk=False).get_opcodes():

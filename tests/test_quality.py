@@ -31,6 +31,9 @@ def test_normalisation_wer_cer():
     assert wer(TEXT, "und jetzt mit der nummer 7 lea viel spaß und gib alles") == 0
     assert cer(TEXT, "Und jetzt mit der Nummer 7, Lea. Viel Spaß und gib alles!") == 0
     assert wer("a b c d", "a x c d") == 0.25
+    assert cer("wearing number 7", "Wearing number seven.", "en") == 0
+    assert cer("mit der Nummer 7", "mit der Nummer sieben", "de") == 0
+    assert cer("mit der Nummer 7", "mit der Nummer sieben") > 0
 
 
 def test_word_diff_finds_garbage_prefix():

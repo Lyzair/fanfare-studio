@@ -105,8 +105,8 @@ class Evaluator:
         audio = self.load(path)
         s = ClipScore(path=path, duration_s=round(len(audio) / SR, 2))
         s.transcript, words = self.transcribe(audio, lang)
-        s.wer, s.cer = round(wer(text, s.transcript), 3), round(cer(text, s.transcript), 3)
-        s.extra_words, s.missing_words, leading = word_diff(text, s.transcript)
+        s.wer, s.cer = round(wer(text, s.transcript, lang), 3), round(cer(text, s.transcript, lang), 3)
+        s.extra_words, s.missing_words, leading = word_diff(text, s.transcript, lang)
         first_word = words[0].start if words else None
         lead, trail, s.prefix_flag, s.prefix_reason = prefix_check(
             self.speech_segments(audio), first_word, leading, len(audio) / SR
