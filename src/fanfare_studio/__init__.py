@@ -1,4 +1,4 @@
-"""Sports Caller Voice Server: local text-to-speech for the Sports Caller browser app."""
+"""Fanfare Studio: local text-to-speech for the Fanfare browser app."""
 
 __version__ = "0.1.0"
 

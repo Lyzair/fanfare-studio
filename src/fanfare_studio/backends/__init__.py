@@ -23,7 +23,7 @@ def create_backend(name: str, **opts) -> Backend:  # type: ignore[no-untyped-def
     if name == "chatterbox-onnx":
         from .chatterbox_onnx_backend import ChatterboxOnnxBackend
 
-        return ChatterboxOnnxBackend(ep=opts["ep"])
+        return ChatterboxOnnxBackend(ep=opts["ep"], variant=opts.get("onnx_variant", "q4"))
     raise ValueError(f"unknown backend {name!r}")
 
 

@@ -4,7 +4,7 @@ import logging
 
 import pytest
 
-from sports_caller_voice_server.runtime import (
+from fanfare_studio.runtime import (
     RuntimeSelectionError,
     pick_providers,
     pick_torch_device,

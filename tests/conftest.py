@@ -4,8 +4,8 @@ import threading
 
 import pytest
 
-from sports_caller_voice_server.backends.mock import MockBackend
-from sports_caller_voice_server.server import VoiceServer
+from fanfare_studio.backends.mock import MockBackend
+from fanfare_studio.server import VoiceServer
 
 
 @pytest.fixture

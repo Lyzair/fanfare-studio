@@ -1,4 +1,4 @@
-"""HTTP server implementing the Sports Caller local voice protocol.
+"""HTTP server implementing the Fanfare local voice protocol.
 
 Stdlib only (http.server.ThreadingHTTPServer): the protocol has two routes, so a
 framework would add install weight and attack surface without saving code.
@@ -21,13 +21,13 @@ DEFAULT_PORT = 5123
 MAX_TEXT_CHARS = 1000
 MAX_BODY_BYTES = 64 * 1024
 
-log = logging.getLogger("sports_caller_voice_server")
+log = logging.getLogger("fanfare_studio")
 
 
 class _Handler(BaseHTTPRequestHandler):
     server: VoiceServer  # type: ignore[assignment]
     protocol_version = "HTTP/1.1"
-    server_version = "SportsCallerVoiceServer/0.1"
+    server_version = "FanfareStudio/0.1"
     sys_version = ""
 
     # --- helpers -----------------------------------------------------------
@@ -96,7 +96,7 @@ class _Handler(BaseHTTPRequestHandler):
             ).encode()
             self._send(200, body, "application/json")
         elif path in ("/", "/health"):
-            self._text(200, f"Sports Caller Voice Server ({self.server.backend.name}) ok")
+            self._text(200, f"Fanfare Studio ({self.server.backend.name}) ok")
         else:
             self._text(404, "not found")
 

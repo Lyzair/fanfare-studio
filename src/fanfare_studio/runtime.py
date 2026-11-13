@@ -18,7 +18,7 @@ from __future__ import annotations
 
 import logging
 
-log = logging.getLogger("sports_caller_voice_server")
+log = logging.getLogger("fanfare_studio")
 
 TORCH_DEVICES = ("auto", "cuda", "rocm", "mps", "cpu")
 

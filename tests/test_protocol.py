@@ -10,9 +10,9 @@ import wave
 
 import pytest
 
-from sports_caller_voice_server import LANGS
-from sports_caller_voice_server.backends.base import BackendError
-from sports_caller_voice_server.server import HOST, MAX_TEXT_CHARS, VoiceServer
+from fanfare_studio import LANGS
+from fanfare_studio.backends.base import BackendError
+from fanfare_studio.server import HOST, MAX_TEXT_CHARS, VoiceServer
 
 
 def request(server, method, path, body=None, headers=None):
@@ -38,8 +38,8 @@ def test_binds_loopback_only(server):
 
 
 def test_default_port_is_5123():
-    from sports_caller_voice_server.__main__ import main  # noqa: F401
-    from sports_caller_voice_server.server import DEFAULT_PORT
+    from fanfare_studio.__main__ import main  # noqa: F401
+    from fanfare_studio.server import DEFAULT_PORT
 
     assert DEFAULT_PORT == 5123
 
@@ -152,7 +152,7 @@ def test_preflight(server, path):
         "OPTIONS",
         path,
         headers={
-            "Origin": "https://sports-caller.example",
+            "Origin": "https://fanfare.example",
             "Access-Control-Request-Method": "POST",
             "Access-Control-Request-Headers": "content-type",
             "Access-Control-Request-Private-Network": "true",
@@ -190,7 +190,7 @@ def test_synthesis_is_serialized(monkeypatch):
     import threading
     import time
 
-    from sports_caller_voice_server.backends.mock import MockBackend
+    from fanfare_studio.backends.mock import MockBackend
 
     backend = MockBackend()
     active, peak = 0, 0
