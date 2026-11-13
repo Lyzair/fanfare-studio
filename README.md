@@ -20,73 +20,86 @@ Status: proof of concept. No installer, no GUI. Licence: MIT.
 
 | `--backend` | Model | Runtime | Selection flag | Languages |
 |---|---|---|---|---|
-| `chatterbox` (default) | Chatterbox Multilingual (MIT) | PyTorch | `--device auto\|cuda\|rocm\|mps\|cpu` | de en fr es it nl pl tr ar |
-| `chatterbox-onnx` | same model, community ONNX export (MIT) | ONNX Runtime | `--ep auto\|cuda\|rocm\|dml\|openvino\|coreml\|qnn\|vitisai\|cpu`, `--onnx-variant q4\|fp16\|fp32` | de en fr es it nl pl tr ar |
-| `piper` | Piper voices in `--voices-dir` (licence per voice) | ONNX Runtime | `--ep ...` | any — fills the **uk** gap |
+| `chatterbox-onnx` (**default, recommended**) | Chatterbox Multilingual (MIT), community ONNX export (MIT), 4-bit LM | ONNX Runtime | `--ep auto\|cuda\|rocm\|dml\|openvino\|coreml\|qnn\|vitisai\|cpu`, `--onnx-variant q4\|fp16\|fp32` | de en fr es it nl pl tr ar |
+| `chatterbox` (*experimental*) | same model, PyTorch package | PyTorch | `--device auto\|cuda\|rocm\|mps\|cpu` | de en fr es it nl pl tr ar |
+| `piper` | Piper voices in `--voices-dir` (licence per voice) | ONNX Runtime (CPU) | `--ep ...` | any — fills the **uk** gap |
 | `mock` | sine beep | none | – | all 10 (tests / client development) |
 
-- `--device auto` tries CUDA/ROCm (both appear as `torch.cuda`) → Apple MPS → CPU. An explicit
-  `--device` that is not available is an error, never a silent fallback.
-- `--ep` tries the requested ONNX Runtime execution provider and falls back to CPU with a
-  warning; the active provider is logged at start-up.
+- **Recommendation for every machine, including AMD/Linux: the default** — Chatterbox ONNX
+  q4 on the CPU. It sounded best in listening tests and needs ~5–6 s per sentence on a desktop
+  CPU. The PyTorch backend works on GPUs but sounded worse (see `docs/model-choice.md`).
+- `--ep auto` picks CUDA → DirectML → CoreML → OpenVINO → QNN → Vitis AI → CPU, whichever is
+  installed. The **ROCm EP is never picked automatically** (it produced garbled audio here);
+  `--ep rocm` forces it and logs a warning. Piper always uses the CPU unless `--ep` is explicit.
+  An unavailable `--ep` falls back to CPU with a warning; the active provider is logged.
+- `--device auto` (PyTorch) tries CUDA/ROCm → Apple MPS → CPU; an explicit unavailable device is
+  an error.
 
-**Verified** in the PoC (Linux, Ryzen 7 5800X3D, Radeon RX 7900 XTX):
-`chatterbox` on ROCm and on CPU; `chatterbox-onnx` and `piper` on the CPU execution provider.
-**Untested** (wired up and documented only): CUDA, MPS, DirectML, OpenVINO, CoreML, QNN, Vitis AI.
-**Known broken**: ONNX Runtime's ROCm EP (`onnxruntime-rocm` 1.22 with a ROCm 7.2 system) —
-sessions load but produce garbage audio. Use `chatterbox --device rocm` on AMD GPUs.
+**Verified** (Linux, Ryzen 7 5800X3D, RX 7900 XTX): `chatterbox-onnx` and `piper` on CPU,
+`chatterbox` on ROCm and CPU. **Untested**: CUDA, MPS, DirectML, OpenVINO, CoreML, QNN,
+Vitis AI. **Broken**: ONNX Runtime ROCm EP (`onnxruntime-rocm` 1.22 on ROCm 7.2).
+
+### Voices and settings (`voices.toml`)
+
+Chatterbox copies the voice of a short reference clip. Without one it uses its built-in
+**English** speaker — German then sounds English-accented. `voices.toml` (server config, the
+HTTP protocol is unchanged) sets per-voice `reference`, `cfg_weight`, `exaggeration`,
+`temperature`, `top_p`, `min_p`, `repetition_penalty`, `seed` and `max_new_tokens`, with a
+`[defaults]` table. Shipped defaults: CFG 0.5, exaggeration 0.5, temperature 0.6, repetition
+penalty 1.2, seed 1234 (same text → same clip); `de-high` uses `voices/de-thorsten.wav`
+(Thorsten-Voice, CC0). Raise `exaggeration` (0.8–1.1) for a livelier announcer. For other
+languages add a 6–10 s clean single-speaker clip from a CC0/CC-BY dataset, or a consenting club
+member's own recording (a voice is personal data under GDPR: consent required, it stays on
+this computer) — see `voices/README.md`. `--voices-config` selects another file.
 
 ### Speed
 
-Sentence "Und jetzt, mit der Nummer 7: Lea! Viel Spaß und gib alles!" (~4–5 s of audio),
-desktop Ryzen 7 5800X3D (8 cores) / RX 7900 XTX:
+German test sentence (~4 s of audio), desktop Ryzen 7 5800X3D (8 cores) / RX 7900 XTX,
+round-2 settings:
 
-| Backend / device | First request | Following | 18 clips (16-player roster) |
-|---|---|---|---|
-| `chatterbox`, ROCm (4.7 GB VRAM) | 20 s (GPU warm-up) | 4.7–6.2 s | ~1.8 min |
-| `chatterbox`, CPU | 13 s | 12–14 s | ~4 min |
-| `chatterbox-onnx` q4, CPU (~3 GB RAM) | 5.3 s | 5.3–5.7 s | ~1.7 min |
-| `chatterbox-onnx` fp32, CPU | 13 s | 12–13 s | ~4 min |
-| `piper` high, CPU | 0.5 s | 0.3–0.4 s | ~6 s |
+| Backend / device | Per sentence | 18 clips (16-player roster) |
+|---|---|---|
+| `chatterbox-onnx` q4, CPU (default, ~3 GB RAM) | 5.5–6 s | ~2 min |
+| `chatterbox-onnx` fp32, CPU | 9–10 s | ~3 min |
+| `chatterbox` (experimental), ROCm (4.7 GB VRAM) | 3–5 s (first after start ~10 s) | ~1.5 min |
+| `chatterbox` (experimental), CPU | 13–16 s | ~4.5 min |
+| `piper` high, CPU | 0.3–0.5 s | seconds |
 
-Expect a typical notebook CPU to be 2–3× slower — still well inside Fanfare's 120 s
-per-request timeout. "Prepare at home" is not time-critical, so CPU works on every notebook.
+A typical notebook CPU is 2–3× slower — ~12–17 s per sentence with the default, far inside
+Fanfare's 120 s per-request timeout.
 
 ## Install
 
-Requires [uv](https://docs.astral.sh/uv/). uv fetches Python 3.12 for the project
-(PyTorch 2.6, pinned by Chatterbox, has no wheels for Python 3.14).
+Requires [uv](https://docs.astral.sh/uv/); uv fetches Python 3.12 for the project.
 
 | Platform / hardware | Command |
 |---|---|
-| Linux + AMD GPU (ROCm) | `uv sync --extra chatterbox --extra rocm` |
-| Linux / Windows + NVIDIA GPU | `uv sync --extra chatterbox --extra cuda` |
-| macOS Apple Silicon (MPS) | `uv sync --extra chatterbox --extra cpu` (PyPI torch includes MPS) |
-| Any, CPU only | `uv sync --extra chatterbox --extra cpu` **or** `uv sync --extra onnx` (lighter, faster on CPU) |
-| iGPU / NPU (portable ONNX path, untested) | `uv sync --extra onnx`, then replace `onnxruntime` with the EP build: `onnxruntime-directml` (Windows, any DX12 GPU incl. Intel/AMD iGPUs), `onnxruntime-openvino` (Intel iGPU/NPU), `onnxruntime-qnn` (Snapdragon X), Ryzen AI SDK (Vitis AI EP). CoreML EP is in the default macOS wheel. |
+| **Any (recommended default)** — Windows, macOS, Linux; CPU | `uv sync --extra onnx` |
+| iGPU / NPU (untested) | `uv sync --extra onnx`, then swap `onnxruntime` for the EP build: `onnxruntime-directml` (Windows, any DX12 GPU incl. Intel/AMD iGPUs), `onnxruntime-openvino` (Intel iGPU/NPU), `onnxruntime-qnn` (Snapdragon X), Ryzen AI SDK (Vitis AI EP). CoreML EP ships in the macOS wheel. |
+| Experimental PyTorch, AMD GPU (Linux ROCm) | `uv sync --extra chatterbox --extra rocm` |
+| Experimental PyTorch, NVIDIA GPU | `uv sync --extra chatterbox --extra cuda` |
+| Experimental PyTorch, macOS (MPS) / CPU | `uv sync --extra chatterbox --extra cpu` |
 | Piper voices | `uv sync --extra piper`; put `*.onnx` + `*.onnx.json` from [piper-voices](https://huggingface.co/rhasspy/piper-voices) into `models/piper/` |
 
 Notes:
-- ROCm: the PyTorch ROCm wheel brings its own ROCm runtime; you need the amdgpu kernel driver
-  and access to `/dev/kfd` and `/dev/dri/renderD*`. RDNA3 (gfx1100) works out of the box.
-- Windows + AMD GPU: no PyTorch ROCm path here → `chatterbox-onnx --ep dml` (untested) or CPU.
-- First start downloads ~3 GB (`chatterbox`) or ~1.6 GB (`chatterbox-onnx` q4) into the
+- ROCm (experimental path): the PyTorch ROCm wheel brings its own ROCm runtime; you need the
+  amdgpu kernel driver and access to `/dev/kfd` and `/dev/dri/renderD*`. gfx1100 works.
+- First start downloads ~1.6 GB (`chatterbox-onnx` q4) or ~3 GB (`chatterbox`) into the
   Hugging Face cache.
 
 ## Run
 
 ```sh
-uv run fanfare-studio                                   # chatterbox, --device auto, port 5123
-uv run fanfare-studio --device cpu                      # force CPU
-uv run fanfare-studio --backend chatterbox-onnx         # ONNX q4, --ep auto
-uv run fanfare-studio --backend chatterbox-onnx --ep openvino
+uv run fanfare-studio                                   # chatterbox-onnx q4, --ep auto (CPU here), port 5123
+uv run fanfare-studio --ep openvino                     # try an execution provider (untested)
+uv run fanfare-studio --backend chatterbox --device rocm   # experimental PyTorch path
 uv run fanfare-studio --backend piper --voices-dir models/piper
 uv run fanfare-studio --backend mock --port 5999
 uv run fanfare-studio --version
 ```
 
-Quick check against a running server: `uv run python scripts/smoke.py de-high:de en-high:en`
-(saves clips to `samples/`, prints audio length and generation time).
+Quick check against a running server: `uv run python scripts/smoke.py de-high:de en-high:en`.
+Comparisons with explicit settings: `uv run python scripts/render.py --help`.
 
 ## Protocol
 
