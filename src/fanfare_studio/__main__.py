@@ -26,7 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"default {DEFAULT_BACKEND} (Chatterbox, 4-bit ONNX, CPU)",
     )
     p.add_argument(
-        "--device", choices=TORCH_DEVICES, default="auto", help="torch backend (chatterbox, experimental)"
+        "--device", choices=TORCH_DEVICES, default="auto", help="chatterbox (PyTorch, experimental) only"
     )
     p.add_argument(
         "--ep",
@@ -39,6 +39,16 @@ def build_parser() -> argparse.ArgumentParser:
         choices=("fp32", "fp16", "q4"),
         default="q4",
         help="chatterbox-onnx: language-model precision (default q4: ~3 GB RAM, fastest on CPU)",
+    )
+    p.add_argument(
+        "--voices-config",
+        default="voices.toml",
+        help="chatterbox backends: per-voice reference clip and settings (default voices.toml, if present)",
+    )
+    p.add_argument(
+        "--torch-math-sdp",
+        action="store_true",
+        help="chatterbox (torch): disable fused attention kernels (diagnostic)",
     )
     p.add_argument("--voices-dir", default="models/piper", help="piper: directory with *.onnx voices")
     return p
@@ -58,6 +68,8 @@ def main(argv: list[str] | None = None) -> int:
     backend = create_backend(
         args.backend, device=args.device, ep=args.ep, voices_dir=args.voices_dir,
         onnx_variant=args.onnx_variant,
+        voices_config=args.voices_config,
+        math_sdp=args.torch_math_sdp,
     )
     server = VoiceServer(backend, args.port)
     log.info(

@@ -20,11 +20,19 @@ def create_backend(name: str, **opts) -> Backend:  # type: ignore[no-untyped-def
     if name == "chatterbox":
         from .chatterbox_backend import ChatterboxBackend
 
-        return ChatterboxBackend(device=opts["device"])
+        return ChatterboxBackend(
+            device=opts["device"],
+            voices_config=opts.get("voices_config"),
+            math_sdp=opts.get("math_sdp", False),
+        )
     if name == "chatterbox-onnx":
         from .chatterbox_onnx_backend import ChatterboxOnnxBackend
 
-        return ChatterboxOnnxBackend(ep=opts["ep"], variant=opts.get("onnx_variant", "q4"))
+        return ChatterboxOnnxBackend(
+            ep=opts["ep"],
+            variant=opts.get("onnx_variant", "q4"),
+            voices_config=opts.get("voices_config"),
+        )
     raise ValueError(f"unknown backend {name!r}")
 
 
