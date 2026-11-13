@@ -101,6 +101,16 @@ uv run fanfare-studio --version
 Quick check against a running server: `uv run python scripts/smoke.py de-high:de en-high:en`.
 Comparisons with explicit settings: `uv run python scripts/render.py --help`.
 
+## Automatic quality checks (dev tooling)
+
+`fanfare-studio eval` scores clips (Whisper round-trip CER/WER, Silero VAD leading/trailing
+silence and garbage-prefix flag, Whisper language probability, UTMOSv2 MOS, ECAPA speaker
+similarity, optional *local* LLM judge). `fanfare-studio tune` searches voice settings within a
+clip budget and writes a leaderboard plus three blind clips `listen/A.wav B.wav C.wav`;
+`fanfare-studio prefer <run> --pick B` records your choice and future `tune` runs learn metric
+weights from your picks. Install with `uv sync --extra onnx --extra eval --extra cpu`
+(~2 GB of evaluation models on first use). Details: `docs/eval.md`.
+
 ## Protocol
 
 The contract Fanfare is built against:
