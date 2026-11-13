@@ -1,0 +1,12 @@
+.venv
+.git
+__pycache__
+*.pyc
+.pytest_cache
+samples
+models
+tune-out
+tests
+docs
+scripts
+compose*.yaml

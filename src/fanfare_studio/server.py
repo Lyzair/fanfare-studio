@@ -24,7 +24,7 @@ from . import references as refs
 from .origins import OriginPolicy
 from .backends.base import Backend, BackendError, UnknownVoiceError, Voice
 
-HOST = "127.0.0.1"  # never 0.0.0.0: the server must not be reachable from the network
+HOST = "127.0.0.1"  # default; 0.0.0.0 only via --host / FANFARE_HOST, meant for containers (publish on 127.0.0.1 only)
 DEFAULT_PORT = 5123
 MAX_TEXT_CHARS = 1000
 MAX_BODY_BYTES = 64 * 1024
@@ -287,6 +287,7 @@ class VoiceServer(ThreadingHTTPServer):
         references_root: Path | None = None,
         origins: OriginPolicy | None = None,
         prompt_unknown_origins: bool = False,
+        host: str = HOST,
     ) -> None:
         self.backend = backend
         self.origins = origins or OriginPolicy()
@@ -296,7 +297,7 @@ class VoiceServer(ThreadingHTTPServer):
         # Club reference voices need a backend that clones voices (chatterbox*, mock).
         self.references_enabled = hasattr(backend, "add_voice")
         self.references_root = references_root
-        super().__init__((HOST, port), _Handler)
+        super().__init__((host, port), _Handler)
         if self.references_enabled:
             for ref in refs.list_all(references_root):
                 try:

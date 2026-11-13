@@ -1,0 +1,35 @@
+# Fanfare Studio, CPU (default: Chatterbox 4-bit ONNX, the best-sounding path in our listening tests).
+#   docker compose up -d --build
+# The port is published on the host's 127.0.0.1 ONLY. Never change it to "5123:5123" / 0.0.0.0.
+services:
+  fanfare-studio:
+    build:
+      context: .
+      args:
+        TORCH_EXTRA: cpu
+        EXTRAS: onnx
+    image: fanfare-studio:local
+    ports:
+      - "127.0.0.1:5123:5123"
+    environment:
+      # Websites allowed to use the server (comma-separated, exact match; localhost always works).
+      # There is no interactive prompt in a container; alternatively use
+      #   docker compose exec fanfare-studio fanfare-studio allow https://you.github.io
+      FANFARE_ALLOWED_ORIGINS: "${FANFARE_ALLOWED_ORIGINS:-}"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+    volumes:
+      - models:/models         # model downloads (about 3 GB), kept across rebuilds
+      - references:/data       # club voices (consented reference clips)
+      - config:/config         # allowed-origins.toml
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+
+volumes:
+  models:
+  references:
+  config:

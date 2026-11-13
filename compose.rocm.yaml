@@ -1,0 +1,17 @@
+# AMD GPU override (PyTorch ROCm; Chatterbox on torch). EXPERIMENTAL.
+#   docker compose -f compose.yaml -f compose.rocm.yaml up -d --build
+# Note: ONNX Runtime on ROCm produced garbled audio in our tests, hence the torch backend here.
+services:
+  fanfare-studio:
+    build:
+      args:
+        TORCH_EXTRA: rocm
+        EXTRAS: chatterbox
+    image: fanfare-studio:rocm
+    command: ["--backend", "chatterbox", "--device", "rocm"]
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+      - render

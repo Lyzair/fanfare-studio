@@ -147,3 +147,18 @@ def test_prompt_answer_no_never_allows(monkeypatch):
     finally:
         srv.shutdown()
         srv.server_close()
+
+
+def test_allowed_origins_from_env(monkeypatch, tmp_path):
+    from fanfare_studio.origins import OriginPolicy, from_env
+
+    monkeypatch.setenv("FANFARE_ALLOWED_ORIGINS", "https://a.example, https://B.example:8443,")
+    p = OriginPolicy(extra=from_env(), path=tmp_path / "x.toml")
+    assert p.allowed("https://a.example") and p.allowed("https://b.example:8443")
+    assert not p.allowed("https://a.example:444") and not p.allowed("https://evil.example")
+    assert p.allowed("http://localhost:8080")  # defaults still apply
+    monkeypatch.setenv("FANFARE_ALLOWED_ORIGINS", "*")
+    import pytest
+
+    with pytest.raises(Exception):
+        OriginPolicy(extra=from_env(), path=tmp_path / "x.toml")

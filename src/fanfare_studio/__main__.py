@@ -9,13 +9,14 @@ from . import __version__
 from .backends import BACKENDS, DEFAULT_BACKEND, create_backend
 from .runtime import EP_CHOICES, TORCH_DEVICES
 from .server import DEFAULT_PORT, HOST, VoiceServer
+from .watermark import WatermarkError
 
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="fanfare-studio",
         description="Fanfare Studio: local text-to-speech server for the Fanfare app "
-        "(binds 127.0.0.1 only, never logs request text). "
+        "(binds 127.0.0.1 by default, never logs request text). "
         "Dev tools: fanfare-studio eval|tune|prefer --help.",
     )
     p.add_argument("--version", action="version", version=f"Fanfare Studio {__version__}")
@@ -58,6 +59,12 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="URL",
         help="also allow this website for this run (repeatable); persistent: fanfare-studio allow URL",
     )
+    p.add_argument(
+        "--host",
+        default=os.environ.get("FANFARE_HOST", HOST),
+        help=f"bind address (default {HOST}, env FANFARE_HOST). 0.0.0.0 is for containers only: "
+        "publish the port on 127.0.0.1 of the host",
+    )
     p.add_argument("--voices-dir", default="models/piper", help="piper: directory with *.onnx voices")
     return p
 
@@ -79,23 +86,35 @@ def main(argv: list[str] | None = None) -> int:
         logging.getLogger(noisy).setLevel(logging.WARNING)
     log = logging.getLogger("fanfare_studio")
     log.info("Fanfare Studio %s - loading backend %s ...", __version__, args.backend)
-    backend = create_backend(
-        args.backend, device=args.device, ep=args.ep, voices_dir=args.voices_dir,
-        onnx_variant=args.onnx_variant,
-        voices_config=args.voices_config,
-        math_sdp=args.torch_math_sdp,
-    )
-    from .origins import OriginPolicy
+    try:
+        backend = create_backend(
+            args.backend, device=args.device, ep=args.ep, voices_dir=args.voices_dir,
+            onnx_variant=args.onnx_variant,
+            voices_config=args.voices_config,
+            math_sdp=args.torch_math_sdp,
+        )
+    except WatermarkError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return 1
+    from .origins import OriginError, OriginPolicy, from_env
 
-    policy = OriginPolicy(extra=args.allow_origin)
-    server = VoiceServer(backend, args.port, origins=policy, prompt_unknown_origins=sys.stdin.isatty())
+    try:
+        policy = OriginPolicy(extra=[*args.allow_origin, *from_env()])
+    except OriginError as e:
+        print(f"Error: {e} (check --allow-origin / FANFARE_ALLOWED_ORIGINS)", file=sys.stderr)
+        return 1
+    server = VoiceServer(
+        backend, args.port, origins=policy, prompt_unknown_origins=sys.stdin.isatty(), host=args.host
+    )
+    if args.host not in ("127.0.0.1", "localhost", "::1"):
+        log.warning("binding %s: only do this inside a container whose port is published on 127.0.0.1", args.host)
     log.info("allowed websites: %s", ", ".join(policy.listing()))
     log.info(
         "Fanfare Studio ready: backend %s on %s, %d voices; listening on http://%s:%d",
         backend.name,
         backend.runtime,
         len(backend.voices()),
-        HOST,
+        args.host,
         server.server_address[1],
     )
     try:

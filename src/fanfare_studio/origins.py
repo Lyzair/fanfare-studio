@@ -7,7 +7,8 @@ requests to it. So every request with an ``Origin`` header must come from an all
   the port wildcard exists only for these two),
 * the user's list in ``<user config dir>/fanfare-studio/allowed-origins.toml``
   (``fanfare-studio allow <origin>``, or "y" at the server's first-use prompt),
-* ``--allow-origin`` on the command line (this run only).
+* ``--allow-origin`` on the command line and ``FANFARE_ALLOWED_ORIGINS`` (comma-separated), this run
+  only (the env var is for containers, where there is no interactive prompt).
 
 Entries match exactly on scheme + host + port. Requests without ``Origin`` (curl, CLI tools)
 are not from a web page and are allowed.
@@ -108,6 +109,11 @@ def remove(origin: str, path: Path | None = None) -> bool:
         return False
     _write([x for x in saved if x != o], path)
     return True
+
+
+def from_env() -> list[str]:
+    """Origins from FANFARE_ALLOWED_ORIGINS (comma-separated, exact match rules, no wildcards)."""
+    return [o for o in (os.environ.get("FANFARE_ALLOWED_ORIGINS") or "").split(",") if o.strip()]
 
 
 class OriginPolicy:

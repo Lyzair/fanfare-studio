@@ -1,0 +1,12 @@
+# NVIDIA GPU override (PyTorch CUDA; Chatterbox on torch). UNTESTED: no NVIDIA hardware available.
+# Needs the NVIDIA Container Toolkit.
+#   docker compose -f compose.yaml -f compose.cuda.yaml up -d --build
+services:
+  fanfare-studio:
+    build:
+      args:
+        TORCH_EXTRA: cuda
+        EXTRAS: chatterbox
+    image: fanfare-studio:cuda
+    command: ["--backend", "chatterbox", "--device", "cuda"]
+    gpus: all
