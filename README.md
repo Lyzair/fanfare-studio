@@ -95,6 +95,7 @@ uv run fanfare-studio --ep openvino                     # try an execution provi
 uv run fanfare-studio --backend chatterbox --device rocm   # experimental PyTorch path
 uv run fanfare-studio --backend piper --voices-dir models/piper
 uv run fanfare-studio --backend mock --port 5999
+uv run fanfare-studio --allow-origin https://<user>.github.io   # allow a Fanfare site for this run
 uv run fanfare-studio --version
 ```
 
@@ -122,10 +123,15 @@ The contract Fanfare is built against:
   `200 audio/wav` (mono, 16-bit PCM).
   Errors carry a `text/plain` message: empty/missing text, text > 1000 characters or malformed
   JSON → `400`; unknown voice → `404`; body > 64 KiB → `413`; model failure → `500`.
-- Every response has `Access-Control-Allow-Origin: *`. Preflight `OPTIONS` → `204` with
-  `Access-Control-Allow-Methods: GET, POST`, `Access-Control-Allow-Headers: Content-Type`,
-  `Access-Control-Allow-Private-Network: true` (Private Network Access: an HTTPS page calling
-  `127.0.0.1`).
+- **CORS / allowed websites** (see *Security*): a request with an `Origin` header is answered
+  only if that origin is allowed; the response then carries `Access-Control-Allow-Origin:
+  <that origin>` and `Vary: Origin` (never `*`). Unknown origins get `403 text/plain` without
+  CORS headers. Requests without `Origin` (curl, scripts) are allowed. Preflight `OPTIONS` →
+  `204` with `Access-Control-Allow-Methods: GET, POST, DELETE`,
+  `Access-Control-Allow-Headers: Content-Type, X-Fanfare`,
+  `Access-Control-Allow-Private-Network: true` (Private Network Access).
+- Fanfare sends `X-Fanfare: 1` on every request; it is **required** on `POST /references` and
+  `DELETE /references/{id}` (missing → `400`).
 - Synthesis is serialized (one at a time): the GPU and the model are shared.
 
 **Addition — club voices** (with the `chatterbox-onnx`, `chatterbox` and `mock` backends):
@@ -138,8 +144,37 @@ The contract Fanfare is built against:
   `400`; upload > 10 MB → `413`. Warnings (still 201): very quiet, clipped.
 - `DELETE /references/{id}` → `204` (recording and metadata deleted), unknown → `404`.
 - Club voices appear in `GET /voices` with ids `club-…` and are used like any other voice.
-- Preflight allows `GET, POST, DELETE`. Audio is never returned; names and audio are never logged
+- Audio is never returned; names and audio are never logged
   (ids are random, so they reveal nothing).
+
+## Security
+
+- **Local only**: the server listens on `127.0.0.1`; nothing on your network can reach it.
+- **But every website open in your browser can send requests to `127.0.0.1`.** Without
+  protection any page could list voices, burn your CPU/GPU with synthesis, or add/delete club
+  voices. So browser requests (they always carry an `Origin` header) must come from an
+  **allowed website**:
+  - built in: `http://localhost:<any port>` and `http://127.0.0.1:<any port>` (local Fanfare
+    development and `vite preview`);
+  - your list, e.g. the Fanfare site you use:
+    `uv run fanfare-studio allow https://<user>.github.io` (exact scheme + host + port; no
+    wildcards), `fanfare-studio allowed` to list, `fanfare-studio disallow <origin>` to remove.
+    Stored in the user config folder (Linux `~/.config/fanfare-studio/allowed-origins.toml`);
+  - `--allow-origin URL` (repeatable) for one run.
+- **First-use approval**: when an unknown website calls the server and the server runs in a
+  terminal, it asks once: `Website https://… wants to use Fanfare Studio. Allow? [y/N]`. That
+  first request is refused (403); after `y` the website is saved and works from then on.
+  Nothing is ever allowed automatically.
+- Unknown websites get `403` **without** CORS headers, so the browser does not let the page read
+  the answer, and their preflights fail.
+- **Write requests need `X-Fanfare: 1`.** A `multipart/form-data` upload is a CORS "simple
+  request": a browser sends it *without* asking the server first (no preflight), so a foreign
+  page could fire an upload even though it could not read the reply. Requiring a custom header
+  makes the browser send a preflight first, which unknown websites fail — the upload is never
+  sent. (`POST /synthesize` uses `application/json`, which already forces a preflight.)
+- Requests without `Origin` (curl, your own scripts) are allowed: they don't come from a web
+  page, and anything that can run them on your computer could also read your files.
+- Logs contain method, path, status and duration only — never texts, names or audio.
 
 ## Your club's own voice
 

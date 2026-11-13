@@ -51,6 +51,13 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="chatterbox (torch): disable fused attention kernels (diagnostic)",
     )
+    p.add_argument(
+        "--allow-origin",
+        action="append",
+        default=[],
+        metavar="URL",
+        help="also allow this website for this run (repeatable); persistent: fanfare-studio allow URL",
+    )
     p.add_argument("--voices-dir", default="models/piper", help="piper: directory with *.onnx voices")
     return p
 
@@ -78,7 +85,11 @@ def main(argv: list[str] | None = None) -> int:
         voices_config=args.voices_config,
         math_sdp=args.torch_math_sdp,
     )
-    server = VoiceServer(backend, args.port)
+    from .origins import OriginPolicy
+
+    policy = OriginPolicy(extra=args.allow_origin)
+    server = VoiceServer(backend, args.port, origins=policy, prompt_unknown_origins=sys.stdin.isatty())
+    log.info("allowed websites: %s", ", ".join(policy.listing()))
     log.info(
         "Fanfare Studio ready: backend %s on %s, %d voices; listening on http://%s:%d",
         backend.name,

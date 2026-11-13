@@ -20,7 +20,7 @@ from fanfare_studio.__main__ import main  # noqa: E402
 from fanfare_studio.backends.mock import MockBackend  # noqa: E402
 from fanfare_studio.server import VoiceServer  # noqa: E402
 
-from .test_protocol import request, synth  # noqa: E402
+from .test_protocol import ORIGIN, request, synth  # noqa: E402
 
 REPO = Path(__file__).resolve().parents[1]
 SPEECH = (REPO / "voices" / "de-thorsten.wav").read_bytes()  # 6.6 s CC0 speech
@@ -50,7 +50,7 @@ def multipart(fields: dict[str, str | bytes]) -> tuple[bytes, str]:
 
 def post_ref(server, **fields):
     body, ctype = multipart(fields)
-    return request(server, "POST", "/references", body, {"Content-Type": ctype})
+    return request(server, "POST", "/references", body, {"Content-Type": ctype, "X-Fanfare": "1"})
 
 
 @pytest.fixture
@@ -98,7 +98,7 @@ def test_consent_missing_is_400(mock_server):
     for consent in ("false", ""):
         resp, body = post_ref(mock_server, audio=SPEECH, name="Coach", lang="de", consent=consent)
         assert resp.status == 400 and b"consent" in body
-        assert resp.getheader("Access-Control-Allow-Origin") == "*"
+        assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert not list(refs.references_dir().glob("club-*")) if refs.references_dir().exists() else True
 
 
@@ -112,16 +112,17 @@ def test_bad_fields_are_400(mock_server):
 
 def test_oversize_is_413(mock_server):
     resp, _ = request(mock_server, "POST", "/references", b"--x--",
-                      {"Content-Type": "multipart/form-data; boundary=x", "Content-Length": str(11 * 1024 * 1024)})
+                      {"Content-Type": "multipart/form-data; boundary=x", "Content-Length": str(11 * 1024 * 1024),
+                       "X-Fanfare": "1"})
     assert resp.status == 413
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
 
 
 def test_add_synthesize_delete_roundtrip(mock_server, caplog):
     with caplog.at_level(logging.DEBUG):
         resp, body = post_ref(mock_server, audio=SPEECH, name="Trainer Zyxwvut", lang="de", consent="true")
     assert resp.status == 201 and resp.getheader("Content-Type") == "application/json"
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     data = json.loads(body)
     assert set(data) == {"id", "lang", "label", "warnings"} and data["id"].startswith("club-")
     assert data["lang"] == "de" and data["label"] == "Trainer Zyxwvut" and data["warnings"] == []
@@ -138,14 +139,14 @@ def test_add_synthesize_delete_roundtrip(mock_server, caplog):
     assert voice_id == rid and settings.reference == str(folder / "reference.wav")
     assert settings.cfg_weight == 0.5 and settings.exaggeration == 0.5
 
-    resp, body = request(mock_server, "DELETE", f"/references/{rid}")
+    resp, body = request(mock_server, "DELETE", f"/references/{rid}", headers={"X-Fanfare": "1"})
     assert resp.status == 204 and body == b""
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert not folder.exists()
     assert rid not in {v["id"] for v in json.loads(request(mock_server, "GET", "/voices")[1])}
     assert synth(mock_server, "Hallo", voice=rid)[0].status == 404
-    assert request(mock_server, "DELETE", f"/references/{rid}")[0].status == 404
-    assert request(mock_server, "DELETE", "/references/../../etc")[0].status == 404
+    assert request(mock_server, "DELETE", f"/references/{rid}", headers={"X-Fanfare": "1"})[0].status == 404
+    assert request(mock_server, "DELETE", "/references/../../etc", headers={"X-Fanfare": "1"})[0].status == 404
 
 
 def test_preflight_allows_delete(mock_server):

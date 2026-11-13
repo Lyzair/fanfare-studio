@@ -122,7 +122,10 @@ def cmd_voice(argv: list[str]) -> int:
     return run(argv)
 
 
-COMMANDS = {"eval": cmd_eval, "tune": cmd_tune, "prefer": cmd_prefer, "voice": cmd_voice}
+from .cli_origins import cmd_allow, cmd_allowed, cmd_disallow  # noqa: E402
+
+COMMANDS = {"eval": cmd_eval, "tune": cmd_tune, "prefer": cmd_prefer, "voice": cmd_voice,
+            "allow": cmd_allow, "allowed": cmd_allowed, "disallow": cmd_disallow}  # fmt: skip
 
 
 def dispatch(argv: list[str]) -> int | None:

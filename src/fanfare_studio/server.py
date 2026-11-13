@@ -21,6 +21,7 @@ from email.policy import HTTP as HTTP_POLICY
 from pathlib import Path
 
 from . import references as refs
+from .origins import OriginPolicy
 from .backends.base import Backend, BackendError, UnknownVoiceError, Voice
 
 HOST = "127.0.0.1"  # never 0.0.0.0: the server must not be reachable from the network
@@ -42,8 +43,36 @@ class _Handler(BaseHTTPRequestHandler):
         return self.server_version
 
     # --- helpers -----------------------------------------------------------
+    _acao: str | None = None
+
     def _cors(self) -> None:
-        self.send_header("Access-Control-Allow-Origin", "*")
+        # Echo only an allowed origin (never "*"); requests without Origin get no CORS header.
+        if self._acao:
+            self.send_header("Access-Control-Allow-Origin", self._acao)
+        self.send_header("Vary", "Origin")
+
+    def _origin_ok(self) -> bool:
+        """Allow-list check for browser requests. Sends 403 (without CORS headers) if not allowed."""
+        self._acao = None
+        origin = self.headers.get("Origin")
+        if origin is None:
+            return True  # not a web page (curl, CLI)
+        if self.server.origins.allowed(origin):
+            self._acao = origin
+            return True
+        self.server.unknown_origin(origin)
+        self._drain()
+        self._text(403, f"This website is not allowed to use Fanfare Studio. Allow it with: fanfare-studio allow {origin}")
+        return False
+
+    def _require_fanfare_header(self) -> bool:
+        # Forces a CORS preflight for write requests (multipart/form-data alone is a "simple"
+        # request a foreign page could send without one).
+        if self.headers.get("X-Fanfare") == "1":
+            return True
+        self._drain()
+        self._text(400, "missing header X-Fanfare: 1")
+        return False
 
     def _send(self, status: int, body: bytes, content_type: str) -> None:
         self._status = status
@@ -85,21 +114,28 @@ class _Handler(BaseHTTPRequestHandler):
     def send_error(self, code: int, message: str | None = None, explain: str | None = None) -> None:
         # Used by BaseHTTPRequestHandler for malformed requests / unsupported methods.
         self.close_connection = True
+        if getattr(self, "headers", None) is not None:
+            origin = self.headers.get("Origin")
+            self._acao = origin if origin and self.server.origins.allowed(origin) else None
         self._text(code, message or HTTPStatus(code).phrase)
 
     # --- routes --------------------------------------------------------------
     def do_OPTIONS(self) -> None:  # noqa: N802
+        if not self._origin_ok():
+            return
         self._status = 204
         self.send_response(204)
         self._cors()
         self.send_header("Access-Control-Allow-Methods", "GET, POST, DELETE")
-        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, X-Fanfare")
         self.send_header("Access-Control-Allow-Private-Network", "true")
         self.send_header("Access-Control-Max-Age", "600")
         self.send_header("Content-Length", "0")
         self.end_headers()
 
     def do_GET(self) -> None:  # noqa: N802
+        if not self._origin_ok():
+            return
         path = self._path()
         if path == "/voices":
             body = json.dumps(
@@ -112,14 +148,19 @@ class _Handler(BaseHTTPRequestHandler):
             self._text(404, "not found")
 
     def do_DELETE(self) -> None:  # noqa: N802
+        if not self._origin_ok():
+            return
         path = self._path()
-        self._drain()
         if path.startswith("/references/") and self.server.references_enabled:
+            if not self._require_fanfare_header():
+                return
+            self._drain()
             if self.server.delete_reference(path.removeprefix("/references/")):
                 self._send(204, b"", "text/plain; charset=utf-8")
             else:
                 self._text(404, "unknown reference")
             return
+        self._drain()
         self._text(404, "not found")
 
     def _references_post(self) -> None:
@@ -171,8 +212,11 @@ class _Handler(BaseHTTPRequestHandler):
         self._send(201, body_out.encode(), "application/json")
 
     def do_POST(self) -> None:  # noqa: N802
+        if not self._origin_ok():
+            return
         if self._path() == "/references" and self.server.references_enabled:
-            self._references_post()
+            if self._require_fanfare_header():
+                self._references_post()
             return
         if self._path() != "/synthesize":
             self._drain()
@@ -236,8 +280,17 @@ class _Handler(BaseHTTPRequestHandler):
 class VoiceServer(ThreadingHTTPServer):
     daemon_threads = True
 
-    def __init__(self, backend: Backend, port: int = DEFAULT_PORT, references_root: Path | None = None) -> None:
+    def __init__(
+        self,
+        backend: Backend,
+        port: int = DEFAULT_PORT,
+        references_root: Path | None = None,
+        origins: OriginPolicy | None = None,
+        prompt_unknown_origins: bool = False,
+    ) -> None:
         self.backend = backend
+        self.origins = origins or OriginPolicy()
+        self._prompter = _OriginPrompter(self.origins) if prompt_unknown_origins else None
         # One synthesis at a time: GPU memory is limited and models are not thread-safe.
         self._synth_lock = threading.Lock()
         # Club reference voices need a backend that clones voices (chatterbox*, mock).
@@ -250,6 +303,11 @@ class VoiceServer(ThreadingHTTPServer):
                     self._register(ref)
                 except Exception as e:  # noqa: BLE001 - one broken folder must not stop the server
                     log.warning("skipping club voice %s: %s", ref.id, type(e).__name__)
+
+    def unknown_origin(self, origin: str) -> None:
+        log.warning("blocked request from website %s (not in the allow-list)", origin)
+        if self._prompter is not None:
+            self._prompter.ask(origin)
 
     def synthesize(self, text: str, voice_id: str) -> bytes:
         with self._synth_lock:
@@ -281,3 +339,37 @@ class VoiceServer(ThreadingHTTPServer):
                 return False
             self.backend.remove_voice(rid)  # type: ignore[attr-defined]
             return True
+
+
+class _OriginPrompter:
+    """Asks once per unknown origin on the terminal, in a background thread (never blocks
+    a request; the triggering request already got 403). Never allows without an explicit "y"."""
+
+    def __init__(self, policy: OriginPolicy) -> None:
+        import queue
+
+        self.policy = policy
+        self._asked: set[str] = set()
+        self._queue: queue.Queue[str] = queue.Queue()
+        threading.Thread(target=self._run, daemon=True).start()
+
+    def ask(self, origin: str) -> None:
+        if origin not in self._asked:
+            self._asked.add(origin)
+            self._queue.put(origin)
+
+    def _run(self) -> None:
+        while True:
+            origin = self._queue.get()
+            try:
+                answer = input(f"\nWebsite {origin} wants to use Fanfare Studio. Allow? [y/N] ")
+            except EOFError:
+                return
+            if answer.strip().lower() in ("y", "yes"):
+                try:
+                    saved = self.policy.allow(origin)
+                    print(f"allowed {saved} (saved to {self.policy.path})", flush=True)
+                except ValueError as e:
+                    print(f"not allowed: {e}", flush=True)
+            else:
+                print(f"not allowed: {origin}", flush=True)

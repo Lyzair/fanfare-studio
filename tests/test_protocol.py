@@ -15,11 +15,17 @@ from fanfare_studio.backends.base import BackendError
 from fanfare_studio.server import HOST, MAX_TEXT_CHARS, VoiceServer
 
 
+ORIGIN = "http://localhost:5173"  # allowed by default (local dev); browsers always send Origin
+
+
 def request(server, method, path, body=None, headers=None):
+    """Like a browser page on ORIGIN; pass headers={"Origin": None} for a non-browser client."""
     conn = http.client.HTTPConnection(*server.server_address[:2], timeout=10)
     data = json.dumps(body).encode() if isinstance(body, (dict, list)) else body
     h = {"Content-Type": "application/json"} if data is not None else {}
+    h["Origin"] = ORIGIN
     h.update(headers or {})
+    h = {k: v for k, v in h.items() if v is not None}
     conn.request(method, path, body=data, headers=h)
     resp = conn.getresponse()
     payload = resp.read()
@@ -49,7 +55,7 @@ def test_voices(server):
     resp, body = request(server, "GET", "/voices")
     assert resp.status == 200
     assert resp.getheader("Content-Type") == "application/json"
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     voices = json.loads(body)
     assert isinstance(voices, list) and voices
     for v in voices:
@@ -64,7 +70,7 @@ def test_synthesize_returns_wav(server):
     resp, body = synth(server, "Und jetzt, mit der Nummer 7: Lea!")
     assert resp.status == 200
     assert resp.getheader("Content-Type") == "audio/wav"
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert int(resp.getheader("Content-Length")) == len(body)
     with wave.open(io.BytesIO(body)) as w:
         assert w.getnchannels() == 1
@@ -95,7 +101,7 @@ def test_bad_requests_are_400_text_plain(server, body):
     resp, payload = request(server, "POST", "/synthesize", body)
     assert resp.status == 400
     assert resp.getheader("Content-Type").startswith("text/plain")
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert payload.strip()
 
 
@@ -103,7 +109,7 @@ def test_unknown_voice_is_404_text_plain(server):
     resp, payload = synth(server, "hallo", voice="nope")
     assert resp.status == 404
     assert resp.getheader("Content-Type").startswith("text/plain")
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert b"nope" in payload
 
 
@@ -115,7 +121,7 @@ def test_model_failure_is_500_text_plain(server, monkeypatch):
     resp, payload = synth(server, "hallo")
     assert resp.status == 500
     assert resp.getheader("Content-Type").startswith("text/plain")
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
 
 
 def test_unexpected_exception_is_500(server, monkeypatch):
@@ -128,20 +134,20 @@ def test_oversized_body_is_rejected(server):
     # Declared size is checked before reading the body.
     resp, _ = request(server, "POST", "/synthesize", b"{}", {"Content-Length": str(128 * 1024)})
     assert resp.status == 413
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
 
 
 def test_unknown_route_is_404_with_cors(server):
     for method, path in [("GET", "/nope"), ("POST", "/voices")]:
         resp, _ = request(server, method, path, {} if method == "POST" else None)
         assert resp.status == 404
-        assert resp.getheader("Access-Control-Allow-Origin") == "*"
+        assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
 
 
 def test_unsupported_method_has_cors(server):
     resp, _ = request(server, "PUT", "/voices")
     assert resp.status == 501
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
 
 
 # --- CORS preflight + Private Network Access ----------------------------------
@@ -152,7 +158,7 @@ def test_preflight(server, path):
         "OPTIONS",
         path,
         headers={
-            "Origin": "https://fanfare.example",
+            "Origin": ORIGIN,
             "Access-Control-Request-Method": "POST",
             "Access-Control-Request-Headers": "content-type",
             "Access-Control-Request-Private-Network": "true",
@@ -160,9 +166,9 @@ def test_preflight(server, path):
     )
     assert resp.status == 204
     assert body == b""
-    assert resp.getheader("Access-Control-Allow-Origin") == "*"
+    assert resp.getheader("Access-Control-Allow-Origin") == ORIGIN
     assert resp.getheader("Access-Control-Allow-Methods") == "GET, POST, DELETE"
-    assert resp.getheader("Access-Control-Allow-Headers") == "Content-Type"
+    assert resp.getheader("Access-Control-Allow-Headers") == "Content-Type, X-Fanfare"
     assert resp.getheader("Access-Control-Allow-Private-Network") == "true"
 
 

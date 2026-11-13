@@ -12,6 +12,7 @@ from fanfare_studio.server import VoiceServer
 def isolated_data_dir(tmp_path, monkeypatch):
     """Never touch the real per-user data dir (club voices, preferences) in tests."""
     monkeypatch.setenv("FANFARE_STUDIO_DATA", str(tmp_path / "fanfare-data"))
+    monkeypatch.setenv("FANFARE_STUDIO_CONFIG_DIR", str(tmp_path / "fanfare-config"))
 
 
 @pytest.fixture
