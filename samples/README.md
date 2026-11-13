@@ -54,3 +54,14 @@ English: the built-in speaker of both paths is English (the ONNX `default_voice.
 voice, cosine 0.65 to it), so English needs no extra reference.
 
 Older files (`rocm-*`, `cpu-*`, `onnxcpu-*`, `onnxq4-*`, `piper-*`, `final-rocm-*`) are round 1.
+
+## Club voice (round 3)
+
+Stand-in "club voice": 20 s of three other CC0 Thorsten-Voice sentences (TV-2022.10-Neutral),
+uploaded as WebM/Opus over `POST /references` (decoded by ffmpeg, 17.9 s of speech kept), once
+as `de` and once as `en`; default backend (ONNX q4, CPU), settings cfg 0.5, ex 0.5, t 0.6.
+
+| File | Description | Gen. s | Audio s | Eval |
+|---|---|---|---|---|
+| `club-de.wav` | German test sentence in the club voice | 6.6 | 3.4 | CER 0, MOS 3.06, speaker sim 0.81 |
+| `club-en.wav` | English test sentence in the (German) club voice | 6.8 | 3.5 | CER 0.02, MOS 3.30, speaker sim 0.49 |

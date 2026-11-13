@@ -128,6 +128,54 @@ The contract Fanfare is built against:
   `127.0.0.1`).
 - Synthesis is serialized (one at a time): the GPU and the model are shared.
 
+**Addition — club voices** (with the `chatterbox-onnx`, `chatterbox` and `mock` backends):
+
+- `POST /references`, `multipart/form-data` with fields `audio` (wav/webm/ogg/mp3/m4a/flac,
+  ≤ 10 MB, ≤ 60 s), `name` (≤ 40 characters), `lang` (`de en fr es it nl pl tr ar`) and
+  `consent` (must be `true`) → `201 application/json`
+  `{ "id": "club-1a2b3c4d", "lang": "de", "label": "…", "warnings": [] }`.
+  Errors (`text/plain`): missing consent, bad field, undecodable audio or < 5 s of speech →
+  `400`; upload > 10 MB → `413`. Warnings (still 201): very quiet, clipped.
+- `DELETE /references/{id}` → `204` (recording and metadata deleted), unknown → `404`.
+- Club voices appear in `GET /voices` with ids `club-…` and are used like any other voice.
+- Preflight allows `GET, POST, DELETE`. Audio is never returned; names and audio are never logged
+  (ids are random, so they reveal nothing).
+
+## Your club's own voice
+
+Fanfare can announce with the voice of your own stadium announcer (or coach, or club
+volunteer). Chatterbox clones a voice from a short recording.
+
+**Recording tips:** a quiet room, phone or headset microphone 20–30 cm from the mouth,
+**15–20 seconds** of speech in the announcer style you want ("Herzlich willkommen zum
+Heimspiel! Mit der Nummer 7 …"), in the language of the announcements, no music or crowd
+noise. Less than 5 s of speech is rejected; very quiet or clipped recordings get a warning.
+
+**Add it** — from Fanfare (upload over `POST /references`) or on the command line:
+
+```sh
+uv run fanfare-studio voice add --name "Stadionsprecher Max" --lang de --file max.wav --consent
+uv run fanfare-studio voice list
+uv run fanfare-studio voice delete club-1a2b3c4d
+```
+
+Processing: decoded with ffmpeg if installed (wav, webm, ogg, mp3, m4a, flac; otherwise
+soundfile: wav/flac/ogg only), mono, 24 kHz, leading/trailing silence trimmed,
+loudness-normalised, capped at 30 s. Stored per user, never in the repository:
+`~/.local/share/fanfare-studio/references/<id>/` (Linux; the platform's user-data folder on
+Windows/macOS) with `reference.wav` and `meta.json` (id, label, language, date, consent).
+Club voices use the tuned settings of the built-in voice of the same language (CFG 0.5,
+exaggeration 0.5, temperature 0.6).
+
+**Consent and privacy (GDPR):** a voice is personal data. Only add a recording if the person
+agreed that it is stored on this computer and used to generate announcements
+(`--consent` / `consent=true` is required and recorded). The recording **stays on this
+computer**; only the generated announcements leave it, through your Fanfare export. Delete
+the voice whenever the person asks (`voice delete` or `DELETE /references/{id}` removes the
+files). **Never imitate famous people or anyone who has not agreed.** Every clip carries
+Chatterbox's inaudible watermark (with the PyTorch backend, or when `resemble-perth` is
+installed) that marks it as AI-generated.
+
 ## Workflow: prepare at home → export → phone
 
 1. At home, start Fanfare Studio (`uv run fanfare-studio`).
