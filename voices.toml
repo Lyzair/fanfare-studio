@@ -1,0 +1,25 @@
+# Fanfare Studio voice settings (server config; the HTTP protocol is unchanged).
+# Read by the chatterbox-onnx (default) and chatterbox backends; --voices-config to use another file.
+# Settings: reference (WAV path, relative to this file; omit = model's built-in English speaker),
+# cfg_weight, exaggeration, temperature (0 = greedy), top_p, min_p, repetition_penalty, seed
+# (fixed = the same text gives the same clip), max_new_tokens.
+
+[defaults]
+cfg_weight = 0.5
+exaggeration = 0.5
+temperature = 0.6
+repetition_penalty = 1.2
+min_p = 0.05
+seed = 1234
+
+# German: native reference speaker (Thorsten-Voice, CC0) instead of the built-in English
+# speaker, which gave German an English accent. See voices/README.md.
+[voices.de-high]
+lang = "de"
+label = "German (high quality)"
+reference = "voices/de-thorsten.wav"
+
+# Other languages use the built-in speaker until a CC0/CC-BY reference (or a consenting club
+# member's own recording) is added, e.g.:
+# [voices.fr-high]
+# reference = "voices/fr-<speaker>.wav"

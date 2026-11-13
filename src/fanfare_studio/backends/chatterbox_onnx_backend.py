@@ -150,7 +150,11 @@ class ChatterboxOnnxBackend:
                 for layer in range(NUM_LAYERS) for kv in ("key", "value")}  # fmt: skip
         mask = np.ones((batch, emb.shape[1]), dtype=np.int64)
         generated = [START_SPEECH_TOKEN]
-        for i in range(s.max_new_tokens):
+        # Speech tokens run at 25/s and speech at >= ~8 characters/s, so 3 tokens per character
+        # (+2 s) is generous. Without this cap a run that never emits stop (seen with greedy
+        # decoding and a cloned voice) babbles until max_new_tokens (32 s of audio).
+        limit = min(s.max_new_tokens, 50 + 3 * len(text))
+        for i in range(limit):
             logits, *present = self._lm.run(None, dict(inputs_embeds=emb, attention_mask=mask, **past))
             logits = logits[:, -1, :].astype(np.float64)
             step = logits[0] + s.cfg_weight * (logits[0] - logits[1]) if use_cfg else logits[0].copy()
