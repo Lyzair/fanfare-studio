@@ -1,13 +1,14 @@
 # Model choice
 
-Researched 2026-11-13 for the Sports Caller Voice Server proof of concept.
+Researched 2026-11-13 for the Fanfare Studio proof of concept (local TTS companion of the
+Fanfare browser app).
 
 ## Requirements
 
 - The licence of the code **and** the weights permits use and redistribution of the
   generated audio (clips go into an export zip and are shared between club devices).
   Prefer MIT / Apache-2.0 / CC0; exclude non-commercial licences.
-- Languages of the browser app: de, en, fr, es, it, nl, pl, tr, uk, ar. **German is mandatory.**
+- Languages of Fanfare: de, en, fr, es, it, nl, pl, tr, uk, ar. **German is mandatory.**
 - Main target hardware is a **notebook**: AMD or NVIDIA dGPU, or only an iGPU (Intel Arc/Xe,
   Radeon 780M/890M), maybe an NPU (Intel Core Ultra, AMD Ryzen AI/XDNA, Snapdragon X
   Hexagon, Apple Neural Engine). Generation is "prepare at home", so it is not
@@ -17,7 +18,7 @@ Researched 2026-11-13 for the Sports Caller Voice Server proof of concept.
 
 | Model | Code licence | Weights licence | Our 10 langs covered | Size / VRAM | Speed (where we know) | Runtime portability |
 |---|---|---|---|---|---|---|
-| **Chatterbox Multilingual** (Resemble AI) | MIT | MIT | **9/10**: de en fr es it nl pl tr ar (no uk) — 23 languages total | 0.5B Llama backbone + S3Gen decoder; ~3–4 GB VRAM in fp32 (measured, see report) | Measured here, see README / report | PyTorch (CUDA, ROCm, MPS, CPU). **Community ONNX export exists** (`onnx-community/chatterbox-multilingual-ONNX`, MIT, fp32/fp16/q4 LM variants) → ONNX Runtime EPs (CPU, DirectML, OpenVINO, CoreML, QNN, Vitis AI, CUDA). |
+| **Chatterbox Multilingual** (Resemble AI) | MIT | MIT | **9/10**: de en fr es it nl pl tr ar (no uk) — 23 languages total | 0.5B Llama backbone + S3Gen decoder; **4.7 GB VRAM** measured (ROCm, fp32); ONNX q4 ~3 GB RAM | ROCm 7900 XTX ~5 s/sentence; CPU (5800X3D) torch ~13 s, ONNX q4 ~5.5 s | PyTorch (CUDA, ROCm, MPS, CPU). **Community ONNX export exists** (`onnx-community/chatterbox-multilingual-ONNX`, MIT, fp32/fp16/q4 LM variants) → ONNX Runtime EPs (CPU, DirectML, OpenVINO, CoreML, QNN, Vitis AI, CUDA). |
 | Qwen3-TTS 12Hz 1.7B (Alibaba) | Apache-2.0 | Apache-2.0 | 5/10: de en fr es it (+ zh ja ko ru pt) | ~2B params, bf16, FlashAttention recommended → realistically CUDA dGPU | not measured | PyTorch only; no official ONNX |
 | Kokoro-82M (hexgrad) | Apache-2.0 | Apache-2.0 | 4/10: en fr es it (+ ja zh hi pt) — **no German** | 82M, tiny | very fast, real-time on CPU | ONNX export available (kokoro-onnx) — very portable, but no German → excluded |
 | Piper voices (OHF-Voice) | engine `piper-tts` (piper1-gpl): **GPL-3.0** (old rhasspy/piper: MIT, archived) | per voice; e.g. `de_DE-thorsten-high` **CC0**, `uk_UA-tetiana-high` **Apache-2.0** | 10/10 (each language has at least one voice; quality varies, check each MODEL_CARD) | 20–110 MB per voice | faster than real time on any CPU | **ONNX native** → every ONNX Runtime EP; runs everywhere |
@@ -58,8 +59,9 @@ Notes:
    Apache-2.0) and is the fallback for very weak notebooks.
 
 Because generation happens at home and the result is cached and exported, CPU is an
-acceptable fallback for every notebook as long as one sentence stays well inside the
-browser client's 120 s per-request timeout (measured numbers: see README and report).
+acceptable fallback for every notebook: measured 5–14 s per sentence on a desktop 8-core CPU,
+so even a notebook 2–3× slower stays far below the browser client's 120 s per-request timeout
+(and below 60 s). A 16-player roster (~18 clips) takes ~2–4 min on CPU, ~1.8 min on ROCm.
 
 ## Sources
 

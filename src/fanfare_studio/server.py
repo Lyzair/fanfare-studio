@@ -30,6 +30,9 @@ class _Handler(BaseHTTPRequestHandler):
     server_version = "FanfareStudio/0.1"
     sys_version = ""
 
+    def version_string(self) -> str:
+        return self.server_version
+
     # --- helpers -----------------------------------------------------------
     def _cors(self) -> None:
         self.send_header("Access-Control-Allow-Origin", "*")
