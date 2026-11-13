@@ -52,4 +52,4 @@ def test_normalize_text_matches_torch_preprocessing():
     assert normalize_text("Und jetzt, mit der Nummer 7: Lea!") == "und jetzt, mit der nummer 7, lea!"
     assert normalize_text("hallo  welt") == "hallo welt."
     assert normalize_text("Spaß!") == "spaß!"
-    assert normalize_text("Ä") == "ä"
+    assert normalize_text("\u00c4!") == "a\u0308!"
