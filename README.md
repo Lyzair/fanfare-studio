@@ -74,14 +74,17 @@ Requires [uv](https://docs.astral.sh/uv/); uv fetches Python 3.12 for the projec
 
 | Platform / hardware | Command |
 |---|---|
-| **Any (recommended default)** — Windows, macOS, Linux; CPU | `uv sync --extra onnx` |
-| iGPU / NPU (untested) | `uv sync --extra onnx`, then swap `onnxruntime` for the EP build: `onnxruntime-directml` (Windows, any DX12 GPU incl. Intel/AMD iGPUs), `onnxruntime-openvino` (Intel iGPU/NPU), `onnxruntime-qnn` (Snapdragon X), Ryzen AI SDK (Vitis AI EP). CoreML EP ships in the macOS wheel. |
+| **Any (recommended default)** — Windows, macOS, Linux; CPU | `uv sync --extra onnx --extra cpu` |
+| iGPU / NPU (untested) | `uv sync --extra onnx --extra cpu`, then swap `onnxruntime` for the EP build: `onnxruntime-directml` (Windows, any DX12 GPU incl. Intel/AMD iGPUs), `onnxruntime-openvino` (Intel iGPU/NPU), `onnxruntime-qnn` (Snapdragon X), Ryzen AI SDK (Vitis AI EP). CoreML EP ships in the macOS wheel. |
 | Experimental PyTorch, AMD GPU (Linux ROCm) | `uv sync --extra chatterbox --extra rocm` |
 | Experimental PyTorch, NVIDIA GPU | `uv sync --extra chatterbox --extra cuda` |
 | Experimental PyTorch, macOS (MPS) / CPU | `uv sync --extra chatterbox --extra cpu` |
 | Piper voices | `uv sync --extra piper`; put `*.onnx` + `*.onnx.json` from [piper-voices](https://huggingface.co/rhasspy/piper-voices) into `models/piper/` |
 
 Notes:
+- Always pick one torch flavour (`--extra cpu|cuda|rocm`): the required PerTh watermarker
+  (`resemble-perth`) imports PyTorch, so torch (~200 MB CPU wheel) is part of every install, even
+  for the ONNX backend. Without an extra uv would pick the huge PyPI CUDA build.
 - ROCm (experimental path): the PyTorch ROCm wheel brings its own ROCm runtime; you need the
   amdgpu kernel driver and access to `/dev/kfd` and `/dev/dri/renderD*`. gfx1100 works.
 - First start downloads ~1.6 GB (`chatterbox-onnx` q4) or ~3 GB (`chatterbox`) into the
@@ -101,6 +104,43 @@ uv run fanfare-studio --version
 
 Quick check against a running server: `uv run python scripts/smoke.py de-high:de en-high:en`.
 Comparisons with explicit settings: `uv run python scripts/render.py --help`.
+
+## Run with Docker
+
+Default image: Chatterbox 4-bit ONNX on CPU (the recommended path, best quality in our listening
+tests). Needs Docker with Compose; the first start downloads ~3 GB of models into the `models`
+volume.
+
+```sh
+docker compose up -d --build            # http://127.0.0.1:5123
+docker compose logs -f fanfare-studio   # "Fanfare Studio ready ..."
+docker compose ps                       # healthy once /voices answers
+```
+
+- **Published on the host's `127.0.0.1:5123` only** (`compose.yaml`). Inside the container the
+  server binds `0.0.0.0` (`FANFARE_HOST` / `--host`) so Docker can forward to it; never publish
+  it as `5123:5123`, that would expose it to your network.
+- **Allowed websites** (the origin rules are unchanged; localhost origins always work): there is
+  no interactive prompt in a container. Either set `FANFARE_ALLOWED_ORIGINS` (comma-separated,
+  exact scheme + host + port, no wildcards):
+  `FANFARE_ALLOWED_ORIGINS=https://you.github.io docker compose up -d`, or persist one with
+  `docker compose exec fanfare-studio fanfare-studio allow https://you.github.io` (stored in the
+  `config` volume; restart the container to apply).
+- **Volumes**: `models` (downloads, `/models`), `references` (club voices, `/data`; add them over
+  `POST /references`, or `docker compose exec fanfare-studio fanfare-studio voice add ...` with the
+  consent flag), `config` (`/config`, allowed origins). `docker compose down -v` deletes them,
+  including club voices.
+- **Hardening**: non-root user, `read_only: true` (+ tmpfs `/tmp`), `cap_drop: [ALL]`,
+  `no-new-privileges`. `HEALTHCHECK` does `GET /voices` without an `Origin` header.
+- **GPU variants (experimental)**: `docker compose -f compose.yaml -f compose.rocm.yaml up -d --build`
+  (AMD, ROCm PyTorch, `/dev/kfd` + `/dev/dri`, torch Chatterbox backend; the image is several GB)
+  and `compose.cuda.yaml` (NVIDIA, `gpus: all`; **untested**, no NVIDIA hardware available). ROCm
+  status: see the Round 6 note in the PoC report. These are not recommended: CPU ONNX 4-bit sounded
+  best.
+- **With the Fanfare web app**: the web repo's `compose.studio.yaml` runs the app and this server
+  together (the app's origin is passed to the server through `FANFARE_ALLOWED_ORIGINS`).
+- Smoke test: `scripts/docker-smoke.sh` (build, start, health, origin 200/403, German clip, `down -v`).
+  Podman works too (`DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock`).
 
 ## Automatic quality checks (dev tooling)
 
@@ -208,8 +248,7 @@ agreed that it is stored on this computer and used to generate announcements
 computer**; only the generated announcements leave it, through your Fanfare export. Delete
 the voice whenever the person asks (`voice delete` or `DELETE /references/{id}` removes the
 files). **Never imitate famous people or anyone who has not agreed.** Every clip carries
-Chatterbox's inaudible watermark (with the PyTorch backend, or when `resemble-perth` is
-installed) that marks it as AI-generated.
+Resemble's inaudible PerTh watermark that marks it as AI-generated (see below).
 
 ## Workflow: prepare at home → export → phone
 
@@ -229,6 +268,15 @@ dependencies, keeps the core installable without the model stack (tests need onl
 and leaves no framework defaults to get wrong (`0.0.0.0` binds, verbose access logs). No
 HTTP/2 or async — irrelevant for one local user with serialized GPU work.
 
+## Watermark (always on)
+
+`resemble-perth` is a **required** dependency. Every clip from every backend is watermarked with
+PerTh: `chatterbox` (torch) via the library itself, `chatterbox-onnx`, `piper` (Ukrainian etc.) and
+`mock` through a wrapper applied to the finished WAV (PerTh works on arbitrary speech audio; we
+verified detection on a Piper clip). If the watermarker cannot be loaded the server **refuses to
+start** with an error; there is no unmarked mode. Watermarking adds a fraction of a second per
+clip. Removing it (or using it to hide the AI origin) is against the spirit of the model licence.
+
 ## Tests
 
 ```sh
@@ -244,8 +292,7 @@ serialized synthesis) and the device / execution-provider selection logic.
 - Fanfare Studio: **MIT** (`LICENSE`).
 - Chatterbox Multilingual code and weights: **MIT** (Resemble AI); ONNX export
   (`onnx-community/chatterbox-multilingual-ONNX`): **MIT**. Generated audio may be used and
-  shared. Clips carry Resemble's inaudible **PerTh watermark** marking them as AI-generated
-  (always with `chatterbox`; with `chatterbox-onnx` only if `resemble-perth` is installed).
+  shared. Clips carry Resemble's inaudible **PerTh watermark** marking them as AI-generated.
 - Piper engine `piper-tts` is **GPL-3.0** (optional extra, not bundled). Piper **voices have
   individual licences** — check each `MODEL_CARD` before sharing clips:
   `de_DE-thorsten-high` CC0, `en_US-ljspeech-high` public domain, `uk_UA-tetiana-high`

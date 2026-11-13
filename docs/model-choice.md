@@ -28,8 +28,8 @@ Fanfare browser app).
 
 Notes:
 
-- Chatterbox outputs carry Resemble AI's **PerTh** imperceptible watermark (the PyTorch
-  package applies it always). That does not restrict use; it marks the audio as AI-generated,
+- Chatterbox outputs carry Resemble AI's **PerTh** imperceptible watermark (applied to every clip
+  of every backend, Piper included; `resemble-perth` is a required dependency). That does not restrict use; it marks the audio as AI-generated,
   which we consider a feature and should mention in the app.
 - The Chatterbox default speaker is a single built-in English reference voice. In other
   languages it speaks with that timbre; quality in German was checked by ear in the PoC run
