@@ -81,12 +81,6 @@ class ChatterboxOnnxBackend:
         self.runtime = f"ONNX Runtime {ort.__version__} {active} (lm={variant})"
         log.info("chatterbox-onnx: requested ep=%s, active provider %s", ep, active)
 
-        try:
-            import perth
-
-            self._watermarker = perth.PerthImplicitWatermarker()
-        except Exception:  # noqa: BLE001 - optional
-            self._watermarker = None
         self._entries: dict[str, VoiceEntry] = {e.voice.id: e for e in load_voices(voices_config)}
         self._conds: dict[str, tuple] = {}
         for e in self._entries.values():
@@ -187,8 +181,6 @@ class ChatterboxOnnxBackend:
         wav = self._decoder.run(None, {"speech_tokens": tokens, "speaker_embeddings": spk_emb,
                                        "speaker_features": spk_feat})[0]  # fmt: skip
         wav = np.squeeze(wav, axis=0)
-        if self._watermarker is not None:
-            wav = self._watermarker.apply_watermark(wav, sample_rate=SAMPLE_RATE)
         log.info("chatterbox-onnx: %d speech tokens in %.1fs", len(speech), time.perf_counter() - t0)
         return wav
 

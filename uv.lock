@@ -784,14 +784,22 @@ name = "fanfare-studio"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
+    { name = "librosa" },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.13'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
     { name = "platformdirs", version = "4.12.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "platformdirs", version = "4.14.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "resemble-perth" },
+    { name = "setuptools" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
 ]
 
 [package.optional-dependencies]
 chatterbox = [
     { name = "chatterbox-tts" },
-    { name = "setuptools" },
 ]
 cpu = [
     { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
@@ -845,17 +853,21 @@ requires-dist = [
     { name = "chatterbox-tts", marker = "extra == 'chatterbox'", specifier = "==0.1.7" },
     { name = "faster-whisper", marker = "extra == 'eval'", specifier = ">=1.2" },
     { name = "huggingface-hub", marker = "extra == 'onnx'" },
+    { name = "librosa" },
     { name = "librosa", marker = "extra == 'onnx'" },
+    { name = "numpy" },
     { name = "numpy", marker = "extra == 'onnx'" },
     { name = "onnxruntime", marker = "extra == 'onnx'", specifier = ">=1.22" },
     { name = "onnxruntime", marker = "extra == 'piper'", specifier = ">=1.22" },
     { name = "piper-tts", marker = "extra == 'piper'", specifier = ">=1.3" },
     { name = "platformdirs", specifier = ">=4" },
     { name = "pytorch-triton-rocm", marker = "extra == 'rocm'", index = "https://download.pytorch.org/whl/rocm6.2.4", conflict = { package = "fanfare-studio", extra = "rocm" } },
-    { name = "setuptools", marker = "extra == 'chatterbox'", specifier = "<81" },
+    { name = "resemble-perth", specifier = "==1.0.1" },
+    { name = "setuptools", specifier = "<81" },
     { name = "soundfile", marker = "extra == 'eval'" },
     { name = "speechbrain", marker = "extra == 'eval'", specifier = ">=1.0" },
     { name = "tokenizers", marker = "extra == 'onnx'" },
+    { name = "torch", specifier = "==2.6.0" },
     { name = "torch", marker = "sys_platform == 'darwin' and extra == 'cpu'", specifier = "==2.6.0" },
     { name = "torch", marker = "sys_platform != 'darwin' and extra == 'cpu'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "fanfare-studio", extra = "cpu" } },
     { name = "torch", marker = "extra == 'cuda'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "fanfare-studio", extra = "cuda" } },

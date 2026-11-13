@@ -20,6 +20,7 @@ log = logging.getLogger("fanfare_studio")
 
 class ChatterboxBackend:
     name = "chatterbox"
+    watermarks_internally = True  # chatterbox-tts applies PerTh inside generate(); it fails to load without it
 
     def __init__(self, device: str = "auto", voices_config: str | None = None, math_sdp: bool = False) -> None:
         import torch

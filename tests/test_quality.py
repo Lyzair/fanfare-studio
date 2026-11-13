@@ -187,4 +187,6 @@ def test_judge_is_optional_and_local_only():
         assert not is_local_url(bad)
         with pytest.raises(ValueError):
             LocalJudge(bad, "m")
-    assert LocalJudge("http://127.0.0.1:8000/v1", "m").url == "http://127.0.0.1:8000/v1/chat/completions"
+    assert LocalJudge("http://127.0.0.1:8000/v1/", "m").url == "http://127.0.0.1:8000/v1"
+    with pytest.raises(ValueError):
+        LocalJudge("http://127.0.0.1:8000", "m")  # must end with /v1

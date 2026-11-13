@@ -13,7 +13,8 @@ max_cer = 0.15     # clips above are rejected; any prefix flag rejects too
 [whisper]
 model = "small"    # faster-whisper model: tiny, base, small, medium
 
-[judge]            # optional LLM judge; no network traffic unless enabled; localhost only
+[judge]            # optional LLM judge (local Unsloth); no network traffic unless enabled; localhost only
 enabled = false
-url = "http://127.0.0.1:8000/v1"
-model = "Qwen/Qwen2.5-Omni-7B"
+url = "http://localhost:8888/v1"   # port printed by `unsloth run`; must be localhost and end with /v1
+model = "default"                  # or an id from GET /v1/models
+# API key: environment variable UNSLOTH_STUDIO_AUTH_TOKEN only (never put it in this file)

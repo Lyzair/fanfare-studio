@@ -5,12 +5,22 @@ description = "Local text-to-speech server for the Fanfare browser app (proof of
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10,<3.14"
-dependencies = ["platformdirs>=4"]  # the server itself is otherwise stdlib-only; model backends are extras
+# The server is otherwise stdlib-only; model backends are extras. The PerTh watermarker is REQUIRED
+# (every clip is watermarked; no watermarker = the server refuses to start). It imports torch and
+# librosa, so pick a torch flavour with exactly one of --extra cpu / cuda / rocm (see README).
+# setuptools<81: resemble-perth still imports pkg_resources.
+dependencies = [
+  "platformdirs>=4",
+  "resemble-perth==1.0.1",
+  "setuptools<81",
+  "numpy",
+  "librosa",
+  "torch==2.6.0",
+]
 
 [project.optional-dependencies]
 # High-quality model (PyTorch). Combine with exactly one of cpu / cuda / rocm on Linux/Windows.
-# setuptools<81: resemble-perth (watermarker) still imports pkg_resources
-chatterbox = ["chatterbox-tts==0.1.7", "setuptools<81"]
+chatterbox = ["chatterbox-tts==0.1.7"]
 cpu = ["torch==2.6.0", "torchaudio==2.6.0", "torchvision==0.21.0"]
 cuda = ["torch==2.6.0", "torchaudio==2.6.0", "torchvision==0.21.0"]
 rocm = ["torch==2.6.0", "torchaudio==2.6.0", "torchvision==0.21.0", "pytorch-triton-rocm"]
