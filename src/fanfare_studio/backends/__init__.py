@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from .base import Backend, BackendError, UnknownVoiceError, Voice
 
-BACKENDS = ("mock", "piper", "chatterbox", "chatterbox-onnx")
+BACKENDS = ("chatterbox-onnx", "chatterbox", "piper", "mock")
+DEFAULT_BACKEND = "chatterbox-onnx"  # Chatterbox, 4-bit ONNX LM, CPU EP: best-sounding path
 
 
 def create_backend(name: str, **opts) -> Backend:  # type: ignore[no-untyped-def]
@@ -27,4 +28,4 @@ def create_backend(name: str, **opts) -> Backend:  # type: ignore[no-untyped-def
     raise ValueError(f"unknown backend {name!r}")
 
 
-__all__ = ["BACKENDS", "Backend", "BackendError", "UnknownVoiceError", "Voice", "create_backend"]
+__all__ = ["BACKENDS", "DEFAULT_BACKEND", "Backend", "BackendError", "UnknownVoiceError", "Voice", "create_backend"]

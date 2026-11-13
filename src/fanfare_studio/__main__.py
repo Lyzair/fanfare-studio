@@ -6,13 +6,12 @@ import os
 import sys
 
 from . import __version__
-
-from .backends import BACKENDS, create_backend
+from .backends import BACKENDS, DEFAULT_BACKEND, create_backend
 from .runtime import EP_CHOICES, TORCH_DEVICES
 from .server import DEFAULT_PORT, HOST, VoiceServer
 
 
-def main(argv: list[str] | None = None) -> int:
+def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="fanfare-studio",
         description="Fanfare Studio: local text-to-speech server for the Fanfare app "
@@ -20,9 +19,14 @@ def main(argv: list[str] | None = None) -> int:
     )
     p.add_argument("--version", action="version", version=f"Fanfare Studio {__version__}")
     p.add_argument("--port", type=int, default=DEFAULT_PORT, help=f"default {DEFAULT_PORT}")
-    p.add_argument("--backend", choices=BACKENDS, default="chatterbox")
     p.add_argument(
-        "--device", choices=TORCH_DEVICES, default="auto", help="torch backends (chatterbox)"
+        "--backend",
+        choices=BACKENDS,
+        default=DEFAULT_BACKEND,
+        help=f"default {DEFAULT_BACKEND} (Chatterbox, 4-bit ONNX, CPU)",
+    )
+    p.add_argument(
+        "--device", choices=TORCH_DEVICES, default="auto", help="torch backend (chatterbox, experimental)"
     )
     p.add_argument(
         "--ep",
@@ -37,7 +41,11 @@ def main(argv: list[str] | None = None) -> int:
         help="chatterbox-onnx: language-model precision (default q4: ~3 GB RAM, fastest on CPU)",
     )
     p.add_argument("--voices-dir", default="models/piper", help="piper: directory with *.onnx voices")
-    args = p.parse_args(argv)
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = build_parser().parse_args(argv)
 
     # No usage telemetry from the Hugging Face libraries (model downloads still need the network
     # on first start; set HF_HUB_OFFLINE=1 afterwards to run fully offline).

@@ -35,7 +35,10 @@ EP_PROVIDERS: dict[str, tuple[str, ...]] = {
     "cpu": ("CPUExecutionProvider",),
 }
 EP_CHOICES = ("auto", *EP_PROVIDERS)
-EP_AUTO_ORDER = ("cuda", "rocm", "dml", "coreml", "openvino", "qnn", "vitisai", "cpu")
+# "rocm" is deliberately NOT in the auto order: onnxruntime-rocm 1.22 on a ROCm 7.2 system
+# produced garbled audio for both Chatterbox ONNX and Piper (see docs/model-choice.md).
+EP_AUTO_ORDER = ("cuda", "dml", "coreml", "openvino", "qnn", "vitisai", "cpu")
+EP_KNOWN_BAD = {"rocm": "known to produce garbled audio (onnxruntime-rocm 1.22, ROCm 7.2)"}
 UNTESTED_EPS = frozenset({"openvino", "coreml", "qnn", "vitisai", "dml", "cuda"})
 
 
@@ -97,6 +100,8 @@ def pick_providers(requested: str, available: list[str]) -> list[str]:
     """Return the ORT provider list to pass to InferenceSession (always ends with CPU)."""
     if requested not in EP_CHOICES:
         raise RuntimeSelectionError(f"unknown execution provider {requested!r}")
+    if requested in EP_KNOWN_BAD:
+        log.warning("execution provider %r requested explicitly: %s", requested, EP_KNOWN_BAD[requested])
     order = EP_AUTO_ORDER if requested == "auto" else (requested,)
     chosen: list[str] = []
     for name in order:

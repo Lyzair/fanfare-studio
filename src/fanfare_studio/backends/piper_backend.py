@@ -33,7 +33,9 @@ class PiperBackend:
         from piper import PiperVoice
         from piper.config import PiperConfig
 
-        providers = pick_providers(ep, ort.get_available_providers())
+        # Piper is faster than real time on any CPU; GPU EPs add nothing but risk, so
+        # "auto" means CPU here. An explicit --ep is still honoured.
+        providers = pick_providers("cpu" if ep == "auto" else ep, ort.get_available_providers())
         self._models: dict[str, object] = {}
         self._voices: dict[str, Voice] = {}
         active = "CPUExecutionProvider"

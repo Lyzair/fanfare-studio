@@ -43,8 +43,32 @@ def test_ep_auto_prefers_gpu_then_cpu():
         "DmlExecutionProvider",
         "CPUExecutionProvider",
     ]
-    assert pick_providers("auto", ["MIGraphXExecutionProvider", "CPUExecutionProvider"])[0] == (
-        "MIGraphXExecutionProvider"
+
+
+
+def test_ep_auto_never_picks_rocm():
+    for rocm in ("ROCMExecutionProvider", "MIGraphXExecutionProvider"):
+        assert pick_providers("auto", [rocm, "CPUExecutionProvider"]) == ["CPUExecutionProvider"]
+
+
+def test_ep_explicit_rocm_is_honoured_with_warning(caplog):
+    with caplog.at_level(logging.WARNING):
+        assert pick_providers("rocm", ["ROCMExecutionProvider", "CPUExecutionProvider"])[0] == (
+            "ROCMExecutionProvider"
+        )
+    assert "known to produce garbled audio" in caplog.text
+
+
+def test_cli_defaults():
+    from fanfare_studio.__main__ import build_parser
+
+    args = build_parser().parse_args([])
+    assert (args.backend, args.onnx_variant, args.ep, args.device, args.port) == (
+        "chatterbox-onnx",
+        "q4",
+        "auto",
+        "auto",
+        5123,
     )
 
 
