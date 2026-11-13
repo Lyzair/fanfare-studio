@@ -2,7 +2,8 @@
 __pycache__/
 *.pyc
 .pytest_cache/
-samples/
+samples/*
+!samples/README.md
 models/
 *.egg-info/
 dist/

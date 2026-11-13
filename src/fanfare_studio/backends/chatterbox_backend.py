@@ -73,7 +73,10 @@ class ChatterboxBackend:
                     exaggeration=s.exaggeration,
                     cfg_weight=s.cfg_weight,
                     temperature=max(s.temperature, 1e-3),  # torch path always samples
-                    repetition_penalty=s.repetition_penalty,
+                    # The package's AlignmentStreamAnalyzer forces end-of-speech after a few repeated
+                    # tokens; below 2.0 (the package default) clips were cut after ~1 s. ONNX has no
+                    # such analyzer and uses 1.2.
+                    repetition_penalty=max(s.repetition_penalty, 2.0),
                     min_p=s.min_p,
                     top_p=s.top_p,
                 )
