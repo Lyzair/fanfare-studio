@@ -8,6 +8,12 @@ from fanfare_studio.backends.mock import MockBackend
 from fanfare_studio.server import VoiceServer
 
 
+@pytest.fixture(autouse=True)
+def isolated_data_dir(tmp_path, monkeypatch):
+    """Never touch the real per-user data dir (club voices, preferences) in tests."""
+    monkeypatch.setenv("FANFARE_STUDIO_DATA", str(tmp_path / "fanfare-data"))
+
+
 @pytest.fixture
 def server():
     srv = VoiceServer(MockBackend(), port=0)  # port 0: pick a free port

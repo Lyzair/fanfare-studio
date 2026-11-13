@@ -116,7 +116,13 @@ def cmd_prefer(argv: list[str]) -> int:
     return 0
 
 
-COMMANDS = {"eval": cmd_eval, "tune": cmd_tune, "prefer": cmd_prefer}
+def cmd_voice(argv: list[str]) -> int:
+    from .cli_voice import cmd_voice as run
+
+    return run(argv)
+
+
+COMMANDS = {"eval": cmd_eval, "tune": cmd_tune, "prefer": cmd_prefer, "voice": cmd_voice}
 
 
 def dispatch(argv: list[str]) -> int | None:

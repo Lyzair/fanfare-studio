@@ -139,7 +139,7 @@ def test_unknown_route_is_404_with_cors(server):
 
 
 def test_unsupported_method_has_cors(server):
-    resp, _ = request(server, "DELETE", "/voices")
+    resp, _ = request(server, "PUT", "/voices")
     assert resp.status == 501
     assert resp.getheader("Access-Control-Allow-Origin") == "*"
 
@@ -161,7 +161,7 @@ def test_preflight(server, path):
     assert resp.status == 204
     assert body == b""
     assert resp.getheader("Access-Control-Allow-Origin") == "*"
-    assert resp.getheader("Access-Control-Allow-Methods") == "GET, POST"
+    assert resp.getheader("Access-Control-Allow-Methods") == "GET, POST, DELETE"
     assert resp.getheader("Access-Control-Allow-Headers") == "Content-Type"
     assert resp.getheader("Access-Control-Allow-Private-Network") == "true"
 

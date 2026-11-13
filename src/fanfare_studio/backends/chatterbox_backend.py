@@ -48,6 +48,14 @@ class ChatterboxBackend:
     def settings(self, voice_id: str) -> Settings:
         return self._entries[voice_id].settings
 
+    def add_voice(self, voice: Voice, settings: Settings) -> None:
+        self._entries[voice.id] = VoiceEntry(voice, settings)
+
+    def remove_voice(self, voice_id: str) -> None:
+        entry = self._entries.pop(voice_id, None)
+        if entry and entry.settings.reference:
+            self._ref_conds.pop(entry.settings.reference, None)
+
     def synthesize(self, text: str, voice_id: str, settings: Settings | None = None) -> bytes:
         entry = self._entries.get(voice_id)
         if entry is None:
