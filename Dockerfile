@@ -17,7 +17,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
         $(for e in ${EXTRAS}; do printf -- '--extra %s ' "$e"; done)
 COPY src ./src
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev --extra "${TORCH_EXTRA}" \
+    uv sync --frozen --no-dev --no-editable --extra "${TORCH_EXTRA}" \
         $(for e in ${EXTRAS}; do printf -- '--extra %s ' "$e"; done)
 
 # ---- runtime ------------------------------------------------------------------------------------

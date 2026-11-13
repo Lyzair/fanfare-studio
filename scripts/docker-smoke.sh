@@ -22,7 +22,7 @@ fail() { echo "FAIL: $*" >&2; exit 1; }
 
 t0=$SECONDS
 dc build
-echo "build: $((SECONDS - t0)) s; image size: $(docker image inspect --format '{{.Size}}' "$(dc images -q fanfare-studio | head -1)" | awk '{printf "%.2f GB", $1/1e9}')"
+echo "build: $((SECONDS - t0)) s; image size: $(docker image inspect --format '{{.Size}}' "$(dc config --images | head -1)" | awk '{printf "%.2f GB", $1/1e9}')"
 dc up -d
 t1=$SECONDS
 cid=$(dc ps -q fanfare-studio)

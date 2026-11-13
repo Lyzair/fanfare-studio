@@ -27,6 +27,12 @@ services:
     cap_drop: [ALL]
     security_opt:
       - no-new-privileges:true
+    healthcheck:   # same as the Dockerfile HEALTHCHECK (also applies to images built in OCI format)
+      test: ["CMD", "python", "-c", "import urllib.request as u; u.urlopen('http://127.0.0.1:5123/voices', timeout=4).read()"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 900s
     restart: unless-stopped
 
 volumes:

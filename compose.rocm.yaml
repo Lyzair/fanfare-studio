@@ -1,4 +1,5 @@
 # AMD GPU override (PyTorch ROCm; Chatterbox on torch). EXPERIMENTAL.
+#   export VIDEO_GID=$(getent group video | cut -d: -f3) RENDER_GID=$(getent group render | cut -d: -f3)
 #   docker compose -f compose.yaml -f compose.rocm.yaml up -d --build
 # Note: ONNX Runtime on ROCm produced garbled audio in our tests, hence the torch backend here.
 services:
@@ -12,6 +13,6 @@ services:
     devices:
       - /dev/kfd
       - /dev/dri
-    group_add:
-      - video
-      - render
+    group_add:   # numeric host GIDs (names may not exist in the image): getent group video render
+      - "${VIDEO_GID:-44}"
+      - "${RENDER_GID:-109}"
