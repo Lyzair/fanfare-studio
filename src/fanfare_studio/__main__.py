@@ -15,7 +15,8 @@ def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="fanfare-studio",
         description="Fanfare Studio: local text-to-speech server for the Fanfare app "
-        "(binds 127.0.0.1 only, never logs request text).",
+        "(binds 127.0.0.1 only, never logs request text). "
+        "Dev tools: fanfare-studio eval|tune|prefer --help.",
     )
     p.add_argument("--version", action="version", version=f"Fanfare Studio {__version__}")
     p.add_argument("--port", type=int, default=DEFAULT_PORT, help=f"default {DEFAULT_PORT}")
@@ -55,6 +56,12 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    argv = sys.argv[1:] if argv is None else argv
+    from .cli_quality import dispatch
+
+    rc = dispatch(argv)
+    if rc is not None:
+        return rc
     args = build_parser().parse_args(argv)
 
     # No usage telemetry from the Hugging Face libraries (model downloads still need the network

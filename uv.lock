@@ -152,6 +152,121 @@ wheels = [
 ]
 
 [[package]]
+name = "av"
+version = "17.1.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version < '3.11' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version < '3.11' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version < '3.11' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')",
+    "python_full_version < '3.11' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version < '3.11' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version < '3.11' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5e/e3/477fa20578c284abeda08d91b63ee9abaebc93445d8feeb989d3d444bae1/av-17.1.0.tar.gz", hash = "sha256:7f1e71ff621b66253333926f948e00faae11d855b2442133c65128bca64cdeb3", size = 4288546, upload-time = "2026-06-07T05:52:55.999Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ca/92/c9d0cea4f6f8f93f5b15a39f99d2d593f922484f22a2d98a8d482283e15b/av-17.1.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:19c84fd72af5ef81a20f18fbc6f9aedff9e1455e53a7062c1d4c95926d73da4e", size = 22622703, upload-time = "2026-06-07T05:51:40.405Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/57/74399770aa103ee4b5ff6da1781440c91a41901d89abb2433fe88773246e/av-17.1.0-cp310-cp310-macosx_14_0_arm64.whl", hash = "sha256:19264c9bb4bee404accc7ce9ec461f2044b7f577a70234d29aafde31ed17de46", size = 18273538, upload-time = "2026-06-07T05:51:43.078Z" },
+    { url = "https://files.pythonhosted.org/packages/eb/17/27c85b12e9ffa8f3f6854358b3eabcd91f3c29c7dac36843fa1376e833f4/av-17.1.0-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:22dff0ae582d10ef08c75c2150a4fd27cfc26653b54930c7c27b9f7b3aa20723", size = 34519101, upload-time = "2026-06-07T05:51:45.305Z" },
+    { url = "https://files.pythonhosted.org/packages/04/a4/542d4bfd9f4aec5f3265985b9dbc6b259d45c2e668f9714e5f4e05b71e64/av-17.1.0-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:90c49bc9608377d01e82e747377505419a229464873341db18202d5dddecce5a", size = 36647600, upload-time = "2026-06-07T05:51:48.57Z" },
+    { url = "https://files.pythonhosted.org/packages/63/1e/63bd5c59580f38109fa4c452b29b715a20c9a5eb3a078b3c447484593c40/av-17.1.0-cp310-cp310-manylinux_2_31_armv7l.whl", hash = "sha256:cc5a5247622cb77e24c342364eb68f88c1442ddfaab60c1f1f483359d3cc7879", size = 25786289, upload-time = "2026-06-07T05:51:51.674Z" },
+    { url = "https://files.pythonhosted.org/packages/70/30/78155cef0c9f8bc13f044130192c58bf962f2c9066982ff3593afe8d27f1/av-17.1.0-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:ff457ed419348e5b8e8c811d341389b052c5e4d5839da3794d019b125b9fe830", size = 35599848, upload-time = "2026-06-07T05:51:54.207Z" },
+    { url = "https://files.pythonhosted.org/packages/76/cb/ae1d7a735a5ad9dc502dba864c51d605cbe932a769218352fd570254c38e/av-17.1.0-cp310-cp310-musllinux_1_2_armv7l.whl", hash = "sha256:1370b11a697eb3f2555906f8ab3519b0cfe48425d7830a3996ad42e6bffafda5", size = 26776479, upload-time = "2026-06-07T05:51:56.788Z" },
+    { url = "https://files.pythonhosted.org/packages/fb/40/128429b9eb0c4a2beb122ed8d04b189515df68967987c2654a2e262a5c43/av-17.1.0-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:3dcd41e53f53f9a3260751d9c3c11d34e93d70d61e506c81f13dbc1e3606e07b", size = 37763744, upload-time = "2026-06-07T05:51:59.222Z" },
+    { url = "https://files.pythonhosted.org/packages/01/6a/5980e7bbeeadfd7a9db8e38e9f1140a3e0c392fccc31bd7b1e4a75cf5a96/av-17.1.0-cp310-cp310-win_amd64.whl", hash = "sha256:3453b06075c7bb973fdb6de52563f7692ff05cbc64c0bb45f4fd6e8709131f2f", size = 28126516, upload-time = "2026-06-07T05:52:01.658Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/87/8036b5c781bc3639ea04ef42d4e26da253bd4bd4311d8705b6a1c8824047/av-17.1.0-cp311-abi3-macosx_11_0_x86_64.whl", hash = "sha256:ad7b4aa011093324b7118245f50ac6db244cfe9900d4072508a5245a2b0d3f41", size = 22460847, upload-time = "2026-06-07T05:52:04.261Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/af/dfdf6fc7b17814b50d0aa9e7a7e37b87be91be3890f44b0d525433cd1fd1/av-17.1.0-cp311-abi3-macosx_14_0_arm64.whl", hash = "sha256:43ebbe977f19a7f2d2bd1a4e119675a0b15e05852cf7309846b6ab922ba7ffe9", size = 18159115, upload-time = "2026-06-07T05:52:06.64Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/13/64f6c466471cea225b8b2f4cdc51a571f8a286984b55a08d169b932fda5d/av-17.1.0-cp311-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:6a20658ec7d96a70e14b1196eff00b7cdd8831ac3b99868e16b8ba8b24090847", size = 33224427, upload-time = "2026-06-07T05:52:09.165Z" },
+    { url = "https://files.pythonhosted.org/packages/77/43/96b35170bf2e64e00a41748c6400ff73232dc0fc62ded283679fb07c7fe0/av-17.1.0-cp311-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:f9a65d1f48b818323fb411e80358f89d77dec340b01d27c6b2dfbb9cbf4b779f", size = 35370183, upload-time = "2026-06-07T05:52:11.959Z" },
+    { url = "https://files.pythonhosted.org/packages/2e/b3/8e8b4b6498731bfbd88e8399a756543f8088f1bd33d08eab678b5aebe728/av-17.1.0-cp311-abi3-manylinux_2_31_armv7l.whl", hash = "sha256:58f7593726437cda5bd19793027e027768450b5c4a594777bf487798a33db702", size = 24459265, upload-time = "2026-06-07T05:52:14.66Z" },
+    { url = "https://files.pythonhosted.org/packages/14/ac/ceb84b7553db21f1143d817245c560d9267168e1e58b1a8eeae2b62c4d04/av-17.1.0-cp311-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:bbab058bd965309f39962e53caac8126987c68c0be094fc4f9427e5615b0218f", size = 34283709, upload-time = "2026-06-07T05:52:17.389Z" },
+    { url = "https://files.pythonhosted.org/packages/59/f9/4115fd84148c9a1cf365096694be6ac882fd3cd3cdb7a2f35e71fecf1631/av-17.1.0-cp311-abi3-musllinux_1_2_armv7l.whl", hash = "sha256:9514cfda85180554c430695282faf4be3ffdf95775d8519733821244eecb58e0", size = 25397573, upload-time = "2026-06-07T05:52:20.012Z" },
+    { url = "https://files.pythonhosted.org/packages/e2/ac/92e52d5ed0e0b84d9d93e52b4338c2713d8a44082b8696e6516fdae7c4e4/av-17.1.0-cp311-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:e1c90f85cd7431ede95b11e8e711571a896ebea433f298849c2c0f1594c8d86e", size = 36451495, upload-time = "2026-06-07T05:52:22.581Z" },
+    { url = "https://files.pythonhosted.org/packages/6b/f2/53a7cd34adb6a971d7e6d99663e74db286966c9db8afdca17472fdf0f98e/av-17.1.0-cp311-abi3-win_amd64.whl", hash = "sha256:5df5c1172ef1cf65a1529d612f7da7798ce2cf82c1ff7212466b538a6cc7214c", size = 28036393, upload-time = "2026-06-07T05:52:25.657Z" },
+    { url = "https://files.pythonhosted.org/packages/66/47/cd9ae0edf2206351c1251bb94b5ec58728e42c5f6ee16c03c412f3a1bb3e/av-17.1.0-cp311-abi3-win_arm64.whl", hash = "sha256:ee98534242a74da847af78624779ac5a3177dc7c69f956a4da9e6f0fdb37d7f6", size = 21174601, upload-time = "2026-06-07T05:52:28.077Z" },
+]
+
+[[package]]
+name = "av"
+version = "18.1.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version == '3.11.*' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/8d/f4/f22114d30d3435e38c6af2b4870f37b864403dca6ae7af747a289ce0a18e/av-18.1.0.tar.gz", hash = "sha256:47bfc286e1bc9de7ab4681fc2b575cd2460a66919d31ffe1bd5aa54fae531a28", size = 4451061, upload-time = "2026-08-12T22:28:18.761Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/05/d4/d7cdc8bff143c17a6d35924375ae28dd692cacde38700a7d419fde54f44a/av-18.1.0-cp311-abi3-macosx_11_0_x86_64.whl", hash = "sha256:ae75d8bb6467895ed1f8572ededf7ffa49eac07f6e483222f5d7d62a41d12f04", size = 22546147, upload-time = "2026-08-12T22:27:11.851Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/c9/37a619297492256b77d5ed906e7d8166c10a26ed251dccf1ae03ab19bff6/av-18.1.0-cp311-abi3-macosx_14_0_arm64.whl", hash = "sha256:b30a4e8d934558e19602b68998a4d9ac9f250fa0dacef216f7e8e40153b13316", size = 18217603, upload-time = "2026-08-12T22:27:14.713Z" },
+    { url = "https://files.pythonhosted.org/packages/d9/84/2464ffb64c08c5ce8b522c8e74594714414e3b0575267652c5c51c0574b9/av-18.1.0-cp311-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:6fc837cc51adf80331ac850779cd53b5d4c4460b0ebe9057a02a921c6736f19d", size = 33640142, upload-time = "2026-08-12T22:27:17.835Z" },
+    { url = "https://files.pythonhosted.org/packages/27/3a/204dbfc3e08eb4cdc6e6ff57be02150bc44523ebdb50182d10025792ebd9/av-18.1.0-cp311-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:8a032e8d8ebc73dec079364b9b4a6837638a2d106e8472314e685ffbf163e700", size = 35786210, upload-time = "2026-08-12T22:27:20.984Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/99/b0d04ec553ff9a7e00455458dfa3a39c8a8f627b273056b4e5fe57d590de/av-18.1.0-cp311-abi3-manylinux_2_31_armv7l.whl", hash = "sha256:3c8b1f8b46f99d52e2d8b0ed5d0cdadf172d24794d46e2077b16e44ed08e26ff", size = 39379798, upload-time = "2026-08-12T22:27:24.432Z" },
+    { url = "https://files.pythonhosted.org/packages/56/b1/e00d4feae59160149df6126585e726fdc6300798fd40c5dd324879e81f68/av-18.1.0-cp311-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:ab5ac081bc9eaf54109120d4e56284674fecfbe520d9aa1707c7fa911ec5f4d2", size = 34690321, upload-time = "2026-08-12T22:27:27.769Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/94/836fa987e3084d11a21489f11357fb24843ef3aa8faf74ddddfc603d5062/av-18.1.0-cp311-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:191224788d87af06c31784a395bb73f14b72f33d7f4871ace0157de2abdc6276", size = 36859932, upload-time = "2026-08-12T22:27:31.403Z" },
+    { url = "https://files.pythonhosted.org/packages/33/b4/76ba21e46704f632004276b85289a1582e95f5eff760436d6149875a1881/av-18.1.0-cp311-abi3-win_amd64.whl", hash = "sha256:ea1480b7a8d5405cb5f382b344731bf125fd2c1c6fae3964f6c48595628387ff", size = 27595679, upload-time = "2026-08-12T22:27:35.177Z" },
+    { url = "https://files.pythonhosted.org/packages/4f/ad/a3135884c5753b09773176b97201ae602f67ad14206c395ff838d66bf9b0/av-18.1.0-cp311-abi3-win_arm64.whl", hash = "sha256:5509ec12aaa19fd6601de13cfa6f4cdad450da07982118510592875d970454d6", size = 20257584, upload-time = "2026-08-12T22:27:38.472Z" },
+]
+
+[[package]]
+name = "av"
+version = "19.0.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version >= '3.13' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')",
+    "python_full_version >= '3.13' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version == '3.12.*' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')",
+    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+]
+sdist = { url = "https://files.pythonhosted.org/packages/23/01/76b6bf563fe907597cf58f10d10168e93fe588b6db9f2658db87e87efa7e/av-19.0.2.tar.gz", hash = "sha256:bebbc52598886480f4d861c575dc2b020785d6c04e1308680ddcc545e1b94c66", size = 4277157, upload-time = "2026-10-21T03:45:30.799Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4a/2f/f51f37820741134516e841053d5ecebf6350fbd451adcbff9ead96aa1244/av-19.0.2-cp312-abi3-macosx_11_0_x86_64.whl", hash = "sha256:f5f7bcf987567cd3f9b01f1c375c59bf59d8a5b98c9c5c154aeda7a11e0c5dce", size = 22627374, upload-time = "2026-10-21T03:44:28.296Z" },
+    { url = "https://files.pythonhosted.org/packages/7c/42/067d0bcd2c07103f18cc23b510a8289dd80330e984c49d51ce0bafcee017/av-19.0.2-cp312-abi3-macosx_14_0_arm64.whl", hash = "sha256:b0dff6dfcc6ff9944fbbff15bc4ee2d90a2c1695d493bdea96e86f48823e9feb", size = 18556422, upload-time = "2026-10-21T03:44:31.267Z" },
+    { url = "https://files.pythonhosted.org/packages/de/0c/448f89f76cf5e4da35dd6294a1e8155b75daa8839f2f2fa353775855d152/av-19.0.2-cp312-abi3-manylinux_2_28_aarch64.whl", hash = "sha256:04c8e412642c652cb2b1997a9cb2114546ee7d894600c631f4be8ceb26a0d0d2", size = 32683287, upload-time = "2026-10-21T03:44:34.588Z" },
+    { url = "https://files.pythonhosted.org/packages/e1/7f/9f1237feb894afa472ef834aa1fbfe4d6398f28dc7e86a1b418650204c36/av-19.0.2-cp312-abi3-manylinux_2_28_x86_64.whl", hash = "sha256:9c1da7aad0fa6c13b4a5c1e7985be0d13f8526a96284573acaf3d55ead6d3fe8", size = 34990159, upload-time = "2026-10-21T03:44:37.637Z" },
+    { url = "https://files.pythonhosted.org/packages/f1/b5/1bde0e54e525d88ad8f5becae657f8142543fd3be9d10b72141f041ca868/av-19.0.2-cp312-abi3-manylinux_2_31_armv7l.whl", hash = "sha256:9d4f9f78c0ce1f20deb72626fdb3c723757f61a8cd6fbb7dd44d9401884a91fd", size = 44422922, upload-time = "2026-10-21T03:44:41.847Z" },
+    { url = "https://files.pythonhosted.org/packages/08/21/65997929fa4dd7c20f64e742aa87205a8d65485718a2ab51633756078e83/av-19.0.2-cp312-abi3-musllinux_1_2_aarch64.whl", hash = "sha256:dfe7af5aa8243afd5d4778f85ad1a7c948e37fad272869da1f8f93f8d57fa7ad", size = 33754699, upload-time = "2026-10-21T03:44:45.772Z" },
+    { url = "https://files.pythonhosted.org/packages/30/44/4de8c0ff5a5e25ceb0841efc0a4a7530a22d61800bc0cc19a1d03aa04358/av-19.0.2-cp312-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:44d3faae747cf04a33f39db8ae983ff3d93adc864ee663bc186b25b686803c3e", size = 36014845, upload-time = "2026-10-21T03:44:49.64Z" },
+    { url = "https://files.pythonhosted.org/packages/32/5a/743a83666ded197df8b9957e2800bef9a39d52b23be2ca211bbd14b5fb22/av-19.0.2-cp312-abi3-win_amd64.whl", hash = "sha256:3ce5a1d7b916d13c16ac58f1756f0fee4af2d53f02bc1403e18550b50d375a22", size = 28150949, upload-time = "2026-10-21T03:44:53.434Z" },
+    { url = "https://files.pythonhosted.org/packages/42/fe/e79d786628d9c0428f72214dbe4b90ee0c625e04d552a604d5235ff35515/av-19.0.2-cp312-abi3-win_arm64.whl", hash = "sha256:79a277b077e3768a0ea9f881ca0b3bc96d4135a8d3a7a579938adb58718d0dfd", size = 20708023, upload-time = "2026-10-21T03:44:56.435Z" },
+]
+
+[[package]]
 name = "brotli"
 version = "1.2.1"
 source = { registry = "https://pypi.org/simple" }
@@ -495,6 +610,38 @@ wheels = [
 ]
 
 [[package]]
+name = "ctranslate2"
+version = "4.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.13'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "pyyaml" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/14/1b/a64d1d084837d0529f27b64105abe4fe8164f9117037c49a829c238b4c18/ctranslate2-4.9.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:851f5fdb37b99203a2e875a89c55ee424d87303a7ae79ade090875b4c0c0bf64", size = 1660053, upload-time = "2026-11-10T19:52:01.691Z" },
+    { url = "https://files.pythonhosted.org/packages/f3/33/ba98d93067795466672c5c06ac7a8acb307acc4deab87cef53e122586d86/ctranslate2-4.9.0-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:b571791dcf69ad763ccc3a4c337806042b019321c196840a645c38eef2875c27", size = 12188255, upload-time = "2026-11-10T19:52:03.846Z" },
+    { url = "https://files.pythonhosted.org/packages/56/31/68e8dacecadc68a7f0a4fd0704b845ecd406c70a74519d291ab12b693b31/ctranslate2-4.9.0-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d84fcbbe7d0d1344a9479d157269d6c284e3e9befd827755076ce9c3b7614bd2", size = 18723037, upload-time = "2026-11-10T19:52:06.275Z" },
+    { url = "https://files.pythonhosted.org/packages/62/ea/bfd5ea16b77ce5595e9042f3687b8d46fb40d6c49d9fd71736861ce5f7d0/ctranslate2-4.9.0-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:2eb36861ed233e830eef47c1cdcbc1ae7f9c72d38b835a401a8a7aec5590c296", size = 42456420, upload-time = "2026-11-10T19:52:09.274Z" },
+    { url = "https://files.pythonhosted.org/packages/a9/b8/89ff13e6f29db9b4fec2f5d0b6081283dde87189b0ded0c7b5d18435d73b/ctranslate2-4.9.0-cp310-cp310-win_amd64.whl", hash = "sha256:b7b5a4626508258991e0c5bec4d172cf72f194ad10193cddaf4f0c43d8fd26a3", size = 20406022, upload-time = "2026-11-10T19:52:12.331Z" },
+    { url = "https://files.pythonhosted.org/packages/41/6b/ca9fe0dbc7c4f76d57c1d759a23cf059c3e323effc29b2c21208908b5bb7/ctranslate2-4.9.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:78a0a59721031193e52732b1e565bfaee7c22ec0d1c48d40e9ed4bc7341a843e", size = 1662417, upload-time = "2026-11-10T19:52:14.628Z" },
+    { url = "https://files.pythonhosted.org/packages/84/8c/9526dc3503f9de160b8a103be15684090919a7ecbcd68486b9ae125d4747/ctranslate2-4.9.0-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:b31ef0802cd25c15321813f4bc3b83b822c5660acfed437c25e47b04eea3c08e", size = 12190765, upload-time = "2026-11-10T19:52:16.426Z" },
+    { url = "https://files.pythonhosted.org/packages/66/67/9886a3f60214aa6dcece801306a99b29e597ec3d00b8222cdaf1f4a736f8/ctranslate2-4.9.0-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ea9e15a05f0fe2fe33ed7ed79350e96043112f85299d56393134655166911ad3", size = 18928735, upload-time = "2026-11-10T19:52:18.725Z" },
+    { url = "https://files.pythonhosted.org/packages/a3/5d/4533eb4ea00da0248611e0e6b8b142b2f5c14f4f1110e6fcc2b5aff099cd/ctranslate2-4.9.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9cb2363ff54810a3a38d0579fe2818138ba8d605215906e9e68022cfe5b663eb", size = 42583989, upload-time = "2026-11-10T19:52:22.204Z" },
+    { url = "https://files.pythonhosted.org/packages/c8/c3/99c3155ac369fde882f53333558ff89aabcee910140318c2338bd1256d5b/ctranslate2-4.9.0-cp311-cp311-win_amd64.whl", hash = "sha256:a81306ee947ff9e8fdffd016c9131801c56472a89c50161a00dc802bd55d47b9", size = 20406902, upload-time = "2026-11-10T19:52:25.371Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/75/4a4a3de8a92f288c3bd6b38d744d3dd3fb7fb28cb8afc2daf374d5bf2500/ctranslate2-4.9.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ca2cc29f5d561e231c15e9e97b13dcbd1913d6615b727fafa1eeffcb0c1f242a", size = 1662843, upload-time = "2026-11-10T19:52:27.424Z" },
+    { url = "https://files.pythonhosted.org/packages/55/f9/2bc6b291e6f15b1a178f7ea3ed8111f673965c9d2d1a15a39cf430345799/ctranslate2-4.9.0-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:7dd5e790e1343aeb4ee0156551e60bb04f2c1a38bfdb3d187c9483da4ad9c4e3", size = 12195837, upload-time = "2026-11-10T19:52:29.067Z" },
+    { url = "https://files.pythonhosted.org/packages/72/af/d4e78ae886ac357a80d6ac2319576858d1856c2924b8c69a403add095586/ctranslate2-4.9.0-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:a2488042f823647050f1e55bb598da8326e14a691a14661f555624b3b2e51fac", size = 19087256, upload-time = "2026-11-10T19:52:31.674Z" },
+    { url = "https://files.pythonhosted.org/packages/61/41/f416fe0c6be955b0cdb8c09df145965d33bfd8a847b13229f547c1a7a5fd/ctranslate2-4.9.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:5d9b3edd73ba665f16a19cd3a498ce74fbfb6204bc0ac321f00f2600a41e8810", size = 42804016, upload-time = "2026-11-10T19:52:35.401Z" },
+    { url = "https://files.pythonhosted.org/packages/c6/ee/0f5bafde2a434b90bec1f979906963ecda6f0d18afc5abaec6f19c7feab1/ctranslate2-4.9.0-cp312-cp312-win_amd64.whl", hash = "sha256:ee930e984679ad16c5fb7bc8da2eaca8c269f86d02cb9eeec087baa1837b5bd2", size = 20408736, upload-time = "2026-11-10T19:52:40.009Z" },
+    { url = "https://files.pythonhosted.org/packages/76/c9/957a2b3a255e0d82f4273284b72108d6eaea7bfd2056dc690a97da35d469/ctranslate2-4.9.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:3b258e28e5a37177ace32939238100aa3ea6c8e916704266e98c475741120169", size = 1662708, upload-time = "2026-11-10T19:52:41.919Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/cd/85d05739ab1b71608c684199fd2e6934231dc1f9c4527141b5f5a85a5085/ctranslate2-4.9.0-cp313-cp313-macosx_11_0_x86_64.whl", hash = "sha256:239e704b0c4de0450f2eafaece45569a9f2c097e4ae382b5deb9de339a869c25", size = 12195808, upload-time = "2026-11-10T19:52:43.517Z" },
+    { url = "https://files.pythonhosted.org/packages/ba/0e/8d4f2a7187bfc87ca1d305a5fa8224c9af2ec3542905a6440cd06ac76a1a/ctranslate2-4.9.0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:0f8bb74a0268f08adfaf01ed74209949a344f01f86713421f12810b99e7d46c9", size = 19085050, upload-time = "2026-11-10T19:52:46.167Z" },
+    { url = "https://files.pythonhosted.org/packages/16/1f/a6785567ff5c252dd4fea261786ca5818abd80a282aa399b01c294470f67/ctranslate2-4.9.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:c749bdd14f91994f92ff455969a5a7daff85f72ba7240187357aa262e75346e3", size = 42769889, upload-time = "2026-11-10T19:52:49.538Z" },
+    { url = "https://files.pythonhosted.org/packages/3f/71/cd84a3e26cf8a932c7826a4e7d45ddbf2e2899880d6dcc5ad4833169e6da/ctranslate2-4.9.0-cp313-cp313-win_amd64.whl", hash = "sha256:d009840a95a5ced75563da030d1aa79dba85c7f280a658e518d575aed40ef095", size = 20408731, upload-time = "2026-11-10T19:52:53.046Z" },
+]
+
+[[package]]
 name = "decorator"
 version = "5.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -636,6 +783,10 @@ wheels = [
 name = "fanfare-studio"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "platformdirs", version = "4.12.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "platformdirs", version = "4.14.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+]
 
 [package.optional-dependencies]
 chatterbox = [
@@ -648,10 +799,20 @@ cpu = [
     { name = "torchaudio", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
     { name = "torchaudio", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
     { name = "torchaudio", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
 ]
 cuda = [
     { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
     { name = "torchaudio", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
+    { name = "torchvision", version = "0.21.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" } },
+]
+eval = [
+    { name = "faster-whisper" },
+    { name = "soundfile" },
+    { name = "speechbrain" },
+    { name = "utmosv2" },
 ]
 onnx = [
     { name = "huggingface-hub" },
@@ -671,6 +832,7 @@ rocm = [
     { name = "pytorch-triton-rocm" },
     { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" } },
     { name = "torchaudio", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" } },
+    { name = "torchvision", version = "0.21.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" } },
 ]
 
 [package.dev-dependencies]
@@ -681,14 +843,18 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "chatterbox-tts", marker = "extra == 'chatterbox'", specifier = "==0.1.7" },
+    { name = "faster-whisper", marker = "extra == 'eval'", specifier = ">=1.2" },
     { name = "huggingface-hub", marker = "extra == 'onnx'" },
     { name = "librosa", marker = "extra == 'onnx'" },
     { name = "numpy", marker = "extra == 'onnx'" },
     { name = "onnxruntime", marker = "extra == 'onnx'", specifier = ">=1.22" },
     { name = "onnxruntime", marker = "extra == 'piper'", specifier = ">=1.22" },
     { name = "piper-tts", marker = "extra == 'piper'", specifier = ">=1.3" },
+    { name = "platformdirs", specifier = ">=4" },
     { name = "pytorch-triton-rocm", marker = "extra == 'rocm'", index = "https://download.pytorch.org/whl/rocm6.2.4", conflict = { package = "fanfare-studio", extra = "rocm" } },
     { name = "setuptools", marker = "extra == 'chatterbox'", specifier = "<81" },
+    { name = "soundfile", marker = "extra == 'eval'" },
+    { name = "speechbrain", marker = "extra == 'eval'", specifier = ">=1.0" },
     { name = "tokenizers", marker = "extra == 'onnx'" },
     { name = "torch", marker = "sys_platform == 'darwin' and extra == 'cpu'", specifier = "==2.6.0" },
     { name = "torch", marker = "sys_platform != 'darwin' and extra == 'cpu'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "fanfare-studio", extra = "cpu" } },
@@ -698,8 +864,13 @@ requires-dist = [
     { name = "torchaudio", marker = "sys_platform != 'darwin' and extra == 'cpu'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "fanfare-studio", extra = "cpu" } },
     { name = "torchaudio", marker = "extra == 'cuda'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "fanfare-studio", extra = "cuda" } },
     { name = "torchaudio", marker = "extra == 'rocm'", specifier = "==2.6.0", index = "https://download.pytorch.org/whl/rocm6.2.4", conflict = { package = "fanfare-studio", extra = "rocm" } },
+    { name = "torchvision", marker = "sys_platform == 'darwin' and extra == 'cpu'", specifier = "==0.21.0" },
+    { name = "torchvision", marker = "sys_platform != 'darwin' and extra == 'cpu'", specifier = "==0.21.0", index = "https://download.pytorch.org/whl/cpu", conflict = { package = "fanfare-studio", extra = "cpu" } },
+    { name = "torchvision", marker = "extra == 'cuda'", specifier = "==0.21.0", index = "https://download.pytorch.org/whl/cu124", conflict = { package = "fanfare-studio", extra = "cuda" } },
+    { name = "torchvision", marker = "extra == 'rocm'", specifier = "==0.21.0", index = "https://download.pytorch.org/whl/rocm6.2.4", conflict = { package = "fanfare-studio", extra = "rocm" } },
+    { name = "utmosv2", marker = "extra == 'eval'", git = "https://github.com/sarulab-speech/UTMOSv2.git?rev=cc2700db57bb83ee13dc31ebe1b868c254e15d09" },
 ]
-provides-extras = ["chatterbox", "cpu", "cuda", "rocm", "piper", "onnx"]
+provides-extras = ["chatterbox", "cpu", "cuda", "rocm", "piper", "onnx", "eval"]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=8" }]
@@ -720,6 +891,25 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/4e/7b/ae546e10f153fcf9a6afd8b9fe4730bdfeb8fdcb93178d54122973ef3f4c/fastapi-0.162.5.tar.gz", hash = "sha256:1ca37f64f61c99cebd38636e67525fb721c5e8c1169f07f2a35d73b0a63265d4", size = 531785, upload-time = "2026-11-11T22:29:53.177Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/10/19/5b9abfa67a29b862e509911eef40f4901f78aa48de32ad1f939b5c2b165e/fastapi-0.162.5-py3-none-any.whl", hash = "sha256:5303c67415fde762889ca337db79d27b755b8bd09cef314fa7a4340bb30bfd2b", size = 151782, upload-time = "2026-11-11T22:29:51.47Z" },
+]
+
+[[package]]
+name = "faster-whisper"
+version = "1.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "av", version = "17.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "av", version = "18.1.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version == '3.11.*'" },
+    { name = "av", version = "19.0.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "ctranslate2" },
+    { name = "huggingface-hub" },
+    { name = "onnxruntime", version = "1.23.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "onnxruntime", version = "1.32.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
+    { name = "tokenizers" },
+    { name = "tqdm" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/05/99/49ee85903dee060d9f08297b4a342e5e0bcfca2f027a07b4ee0a38ab13f9/faster_whisper-1.2.1-py3-none-any.whl", hash = "sha256:79a66ad50688c0b794dd501dc340a736992a6342f7f95e5811be60b5224a26a7", size = 1118909, upload-time = "2025-10-31T11:35:47.794Z" },
 ]
 
 [[package]]
@@ -972,6 +1162,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/cc/3f/2c29224acb2e2df4d2046e4c73ee2662023c58ff5b113c4c1adac0886c43/humanfriendly-10.0.tar.gz", hash = "sha256:6b0b831ce8f15f7300721aa49829fc4e83921a9a301cc7f606be6686a2288ddc", size = 360702, upload-time = "2021-09-17T21:40:43.31Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/f0/0f/310fb31e39e2d734ccaa2c0fb981ee41f7bd5056ce9bc29b2248bd569169/humanfriendly-10.0-py2.py3-none-any.whl", hash = "sha256:1697e1a8a8f550fd43c2865cd84542fc175a61dcb779b6fee18cf6b6ccba1477", size = 86794, upload-time = "2021-09-17T21:40:39.897Z" },
+]
+
+[[package]]
+name = "hyperpyyaml"
+version = "1.2.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyyaml" },
+    { name = "ruamel-yaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ce/cf/000268ec653f354d464e6101505672365e8cecdcb216034a4bb0dbf9dca0/hyperpyyaml-1.2.3.tar.gz", hash = "sha256:4b135800ae13b846ae90aeb1c25e65e4d7a0138bd4935d3222734828d9f218f6", size = 17355, upload-time = "2026-01-01T20:01:49.427Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/7d/a5/98e20cc4365e293dfc1382e2f8dbf44b1cb14d75658ab5147cb0d6d8718e/hyperpyyaml-1.2.3-py3-none-any.whl", hash = "sha256:0088c8ce97dc7c7d3460112b6ccc92dca46fade4d0320bc39f58b1fdda60f7f1", size = 16456, upload-time = "2026-01-01T20:01:48.462Z" },
 ]
 
 [[package]]
@@ -3224,6 +3427,66 @@ wheels = [
 ]
 
 [[package]]
+name = "ruamel-yaml"
+version = "0.18.17"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "ruamel-yaml-clib", marker = "platform_python_implementation == 'CPython'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3a/2b/7a1f1ebcd6b3f14febdc003e658778d81e76b40df2267904ee6b13f0c5c6/ruamel_yaml-0.18.17.tar.gz", hash = "sha256:9091cd6e2d93a3a4b157ddb8fabf348c3de7f1fb1381346d985b6b247dcd8d3c", size = 149602, upload-time = "2025-12-17T20:02:55.757Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/af/fe/b6045c782f1fd1ae317d2a6ca1884857ce5c20f59befe6ab25a8603c43a7/ruamel_yaml-0.18.17-py3-none-any.whl", hash = "sha256:9c8ba9eb3e793efdf924b60d521820869d5bf0cb9c6f1b82d82de8295e290b9d", size = 121594, upload-time = "2025-12-17T20:02:07.657Z" },
+]
+
+[[package]]
+name = "ruamel-yaml-clib"
+version = "0.2.15"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ea/97/60fda20e2fb54b83a61ae14648b0817c8f5d84a3821e40bfbdae1437026a/ruamel_yaml_clib-0.2.15.tar.gz", hash = "sha256:46e4cc8c43ef6a94885f72512094e482114a8a706d3c555a34ed4b0d20200600", size = 225794, upload-time = "2025-11-16T16:12:59.761Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/f7/5a/4ab767cd42dcd65b83c323e1620d7c01ee60a52f4032fb7b61501f45f5c2/ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:88eea8baf72f0ccf232c22124d122a7f26e8a24110a0273d9bcddcb0f7e1fa03", size = 147454, upload-time = "2025-11-16T16:13:02.54Z" },
+    { url = "https://files.pythonhosted.org/packages/40/44/184173ac1e74fd35d308108bcbf83904d6ef8439c70763189225a166b238/ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9b6f7d74d094d1f3a4e157278da97752f16ee230080ae331fcc219056ca54f77", size = 132467, upload-time = "2025-11-16T16:13:03.539Z" },
+    { url = "https://files.pythonhosted.org/packages/49/1b/2d2077a25fe682ae335007ca831aff42e3cbc93c14066675cf87a6c7fc3e/ruamel_yaml_clib-0.2.15-cp310-cp310-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:4be366220090d7c3424ac2b71c90d1044ea34fca8c0b88f250064fd06087e614", size = 693454, upload-time = "2025-11-16T20:22:41.083Z" },
+    { url = "https://files.pythonhosted.org/packages/90/16/e708059c4c429ad2e33be65507fc1730641e5f239fb2964efc1ba6edea94/ruamel_yaml_clib-0.2.15-cp310-cp310-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:1f66f600833af58bea694d5892453f2270695b92200280ee8c625ec5a477eed3", size = 700345, upload-time = "2025-11-16T16:13:04.771Z" },
+    { url = "https://files.pythonhosted.org/packages/d9/79/0e8ef51df1f0950300541222e3332f20707a9c210b98f981422937d1278c/ruamel_yaml_clib-0.2.15-cp310-cp310-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:da3d6adadcf55a93c214d23941aef4abfd45652110aed6580e814152f385b862", size = 731306, upload-time = "2025-11-16T16:13:06.312Z" },
+    { url = "https://files.pythonhosted.org/packages/a6/f4/2cdb54b142987ddfbd01fc45ac6bd882695fbcedb9d8bbf796adc3fc3746/ruamel_yaml_clib-0.2.15-cp310-cp310-musllinux_1_2_aarch64.whl", hash = "sha256:e9fde97ecb7bb9c41261c2ce0da10323e9227555c674989f8d9eb7572fc2098d", size = 692415, upload-time = "2025-11-16T16:13:07.465Z" },
+    { url = "https://files.pythonhosted.org/packages/a0/07/40b5fc701cce8240a3e2d26488985d3bbdc446e9fe397c135528d412fea6/ruamel_yaml_clib-0.2.15-cp310-cp310-musllinux_1_2_i686.whl", hash = "sha256:05c70f7f86be6f7bee53794d80050a28ae7e13e4a0087c1839dcdefd68eb36b6", size = 705007, upload-time = "2025-11-16T20:22:42.856Z" },
+    { url = "https://files.pythonhosted.org/packages/82/19/309258a1df6192fb4a77ffa8eae3e8150e8d0ffa56c1b6fa92e450ba2740/ruamel_yaml_clib-0.2.15-cp310-cp310-musllinux_1_2_x86_64.whl", hash = "sha256:6f1d38cbe622039d111b69e9ca945e7e3efebb30ba998867908773183357f3ed", size = 723974, upload-time = "2025-11-16T16:13:08.72Z" },
+    { url = "https://files.pythonhosted.org/packages/67/3a/d6ee8263b521bfceb5cd2faeb904a15936480f2bb01c7ff74a14ec058ca4/ruamel_yaml_clib-0.2.15-cp310-cp310-win32.whl", hash = "sha256:fe239bdfdae2302e93bd6e8264bd9b71290218fff7084a9db250b55caaccf43f", size = 102836, upload-time = "2025-11-16T16:13:10.27Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/03/92aeb5c69018387abc49a8bb4f83b54a0471d9ef48e403b24bac68f01381/ruamel_yaml_clib-0.2.15-cp310-cp310-win_amd64.whl", hash = "sha256:468858e5cbde0198337e6a2a78eda8c3fb148bdf4c6498eaf4bc9ba3f8e780bd", size = 121917, upload-time = "2025-11-16T16:13:12.145Z" },
+    { url = "https://files.pythonhosted.org/packages/2c/80/8ce7b9af532aa94dd83360f01ce4716264db73de6bc8efd22c32341f6658/ruamel_yaml_clib-0.2.15-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:c583229f336682b7212a43d2fa32c30e643d3076178fb9f7a6a14dde85a2d8bd", size = 147998, upload-time = "2025-11-16T16:13:13.241Z" },
+    { url = "https://files.pythonhosted.org/packages/53/09/de9d3f6b6701ced5f276d082ad0f980edf08ca67114523d1b9264cd5e2e0/ruamel_yaml_clib-0.2.15-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:56ea19c157ed8c74b6be51b5fa1c3aff6e289a041575f0556f66e5fb848bb137", size = 132743, upload-time = "2025-11-16T16:13:14.265Z" },
+    { url = "https://files.pythonhosted.org/packages/0e/f7/73a9b517571e214fe5c246698ff3ed232f1ef863c8ae1667486625ec688a/ruamel_yaml_clib-0.2.15-cp311-cp311-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:5fea0932358e18293407feb921d4f4457db837b67ec1837f87074667449f9401", size = 731459, upload-time = "2025-11-16T20:22:44.338Z" },
+    { url = "https://files.pythonhosted.org/packages/9b/a2/0dc0013169800f1c331a6f55b1282c1f4492a6d32660a0cf7b89e6684919/ruamel_yaml_clib-0.2.15-cp311-cp311-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:ef71831bd61fbdb7aa0399d5c4da06bea37107ab5c79ff884cc07f2450910262", size = 749289, upload-time = "2025-11-16T16:13:15.633Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/ed/3fb20a1a96b8dc645d88c4072df481fe06e0289e4d528ebbdcc044ebc8b3/ruamel_yaml_clib-0.2.15-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:617d35dc765715fa86f8c3ccdae1e4229055832c452d4ec20856136acc75053f", size = 777630, upload-time = "2025-11-16T16:13:16.898Z" },
+    { url = "https://files.pythonhosted.org/packages/60/50/6842f4628bc98b7aa4733ab2378346e1441e150935ad3b9f3c3c429d9408/ruamel_yaml_clib-0.2.15-cp311-cp311-musllinux_1_2_aarch64.whl", hash = "sha256:1b45498cc81a4724a2d42273d6cfc243c0547ad7c6b87b4f774cb7bcc131c98d", size = 744368, upload-time = "2025-11-16T16:13:18.117Z" },
+    { url = "https://files.pythonhosted.org/packages/d3/b0/128ae8e19a7d794c2e36130a72b3bb650ce1dd13fb7def6cf10656437dcf/ruamel_yaml_clib-0.2.15-cp311-cp311-musllinux_1_2_i686.whl", hash = "sha256:def5663361f6771b18646620fca12968aae730132e104688766cf8a3b1d65922", size = 745233, upload-time = "2025-11-16T20:22:45.833Z" },
+    { url = "https://files.pythonhosted.org/packages/75/05/91130633602d6ba7ce3e07f8fc865b40d2a09efd4751c740df89eed5caf9/ruamel_yaml_clib-0.2.15-cp311-cp311-musllinux_1_2_x86_64.whl", hash = "sha256:014181cdec565c8745b7cbc4de3bf2cc8ced05183d986e6d1200168e5bb59490", size = 770963, upload-time = "2025-11-16T16:13:19.344Z" },
+    { url = "https://files.pythonhosted.org/packages/fd/4b/fd4542e7f33d7d1bc64cc9ac9ba574ce8cf145569d21f5f20133336cdc8c/ruamel_yaml_clib-0.2.15-cp311-cp311-win32.whl", hash = "sha256:d290eda8f6ada19e1771b54e5706b8f9807e6bb08e873900d5ba114ced13e02c", size = 102640, upload-time = "2025-11-16T16:13:20.498Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/eb/00ff6032c19c7537371e3119287999570867a0eafb0154fccc80e74bf57a/ruamel_yaml_clib-0.2.15-cp311-cp311-win_amd64.whl", hash = "sha256:bdc06ad71173b915167702f55d0f3f027fc61abd975bd308a0968c02db4a4c3e", size = 121996, upload-time = "2025-11-16T16:13:21.855Z" },
+    { url = "https://files.pythonhosted.org/packages/72/4b/5fde11a0722d676e469d3d6f78c6a17591b9c7e0072ca359801c4bd17eee/ruamel_yaml_clib-0.2.15-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:cb15a2e2a90c8475df45c0949793af1ff413acfb0a716b8b94e488ea95ce7cff", size = 149088, upload-time = "2025-11-16T16:13:22.836Z" },
+    { url = "https://files.pythonhosted.org/packages/85/82/4d08ac65ecf0ef3b046421985e66301a242804eb9a62c93ca3437dc94ee0/ruamel_yaml_clib-0.2.15-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:64da03cbe93c1e91af133f5bec37fd24d0d4ba2418eaf970d7166b0a26a148a2", size = 134553, upload-time = "2025-11-16T16:13:24.151Z" },
+    { url = "https://files.pythonhosted.org/packages/b9/cb/22366d68b280e281a932403b76da7a988108287adff2bfa5ce881200107a/ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:f6d3655e95a80325b84c4e14c080b2470fe4f33b6846f288379ce36154993fb1", size = 737468, upload-time = "2025-11-16T20:22:47.335Z" },
+    { url = "https://files.pythonhosted.org/packages/71/73/81230babf8c9e33770d43ed9056f603f6f5f9665aea4177a2c30ae48e3f3/ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:71845d377c7a47afc6592aacfea738cc8a7e876d586dfba814501d8c53c1ba60", size = 753349, upload-time = "2025-11-16T16:13:26.269Z" },
+    { url = "https://files.pythonhosted.org/packages/61/62/150c841f24cda9e30f588ef396ed83f64cfdc13b92d2f925bb96df337ba9/ruamel_yaml_clib-0.2.15-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:11e5499db1ccbc7f4b41f0565e4f799d863ea720e01d3e99fa0b7b5fcd7802c9", size = 788211, upload-time = "2025-11-16T16:13:27.441Z" },
+    { url = "https://files.pythonhosted.org/packages/30/93/e79bd9cbecc3267499d9ead919bd61f7ddf55d793fb5ef2b1d7d92444f35/ruamel_yaml_clib-0.2.15-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:4b293a37dc97e2b1e8a1aec62792d1e52027087c8eea4fc7b5abd2bdafdd6642", size = 743203, upload-time = "2025-11-16T16:13:28.671Z" },
+    { url = "https://files.pythonhosted.org/packages/8d/06/1eb640065c3a27ce92d76157f8efddb184bd484ed2639b712396a20d6dce/ruamel_yaml_clib-0.2.15-cp312-cp312-musllinux_1_2_i686.whl", hash = "sha256:512571ad41bba04eac7268fe33f7f4742210ca26a81fe0c75357fa682636c690", size = 747292, upload-time = "2025-11-16T20:22:48.584Z" },
+    { url = "https://files.pythonhosted.org/packages/a5/21/ee353e882350beab65fcc47a91b6bdc512cace4358ee327af2962892ff16/ruamel_yaml_clib-0.2.15-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:e5e9f630c73a490b758bf14d859a39f375e6999aea5ddd2e2e9da89b9953486a", size = 771624, upload-time = "2025-11-16T16:13:29.853Z" },
+    { url = "https://files.pythonhosted.org/packages/57/34/cc1b94057aa867c963ecf9ea92ac59198ec2ee3a8d22a126af0b4d4be712/ruamel_yaml_clib-0.2.15-cp312-cp312-win32.whl", hash = "sha256:f4421ab780c37210a07d138e56dd4b51f8642187cdfb433eb687fe8c11de0144", size = 100342, upload-time = "2025-11-16T16:13:31.067Z" },
+    { url = "https://files.pythonhosted.org/packages/b3/e5/8925a4208f131b218f9a7e459c0d6fcac8324ae35da269cb437894576366/ruamel_yaml_clib-0.2.15-cp312-cp312-win_amd64.whl", hash = "sha256:2b216904750889133d9222b7b873c199d48ecbb12912aca78970f84a5aa1a4bc", size = 119013, upload-time = "2025-11-16T16:13:32.164Z" },
+    { url = "https://files.pythonhosted.org/packages/17/5e/2f970ce4c573dc30c2f95825f2691c96d55560268ddc67603dc6ea2dd08e/ruamel_yaml_clib-0.2.15-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:4dcec721fddbb62e60c2801ba08c87010bd6b700054a09998c4d09c08147b8fb", size = 147450, upload-time = "2025-11-16T16:13:33.542Z" },
+    { url = "https://files.pythonhosted.org/packages/d6/03/a1baa5b94f71383913f21b96172fb3a2eb5576a4637729adbf7cd9f797f8/ruamel_yaml_clib-0.2.15-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:65f48245279f9bb301d1276f9679b82e4c080a1ae25e679f682ac62446fac471", size = 133139, upload-time = "2025-11-16T16:13:34.587Z" },
+    { url = "https://files.pythonhosted.org/packages/dc/19/40d676802390f85784235a05788fd28940923382e3f8b943d25febbb98b7/ruamel_yaml_clib-0.2.15-cp313-cp313-manylinux1_i686.manylinux_2_28_i686.manylinux_2_5_i686.whl", hash = "sha256:46895c17ead5e22bea5e576f1db7e41cb273e8d062c04a6a49013d9f60996c25", size = 731474, upload-time = "2025-11-16T20:22:49.934Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/bb/6ef5abfa43b48dd55c30d53e997f8f978722f02add61efba31380d73e42e/ruamel_yaml_clib-0.2.15-cp313-cp313-manylinux2014_aarch64.manylinux_2_17_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:3eb199178b08956e5be6288ee0b05b2fb0b5c1f309725ad25d9c6ea7e27f962a", size = 748047, upload-time = "2025-11-16T16:13:35.633Z" },
+    { url = "https://files.pythonhosted.org/packages/ff/5d/e4f84c9c448613e12bd62e90b23aa127ea4c46b697f3d760acc32cb94f25/ruamel_yaml_clib-0.2.15-cp313-cp313-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:4d1032919280ebc04a80e4fb1e93f7a738129857eaec9448310e638c8bccefcf", size = 782129, upload-time = "2025-11-16T16:13:36.781Z" },
+    { url = "https://files.pythonhosted.org/packages/de/4b/e98086e88f76c00c88a6bcf15eae27a1454f661a9eb72b111e6bbb69024d/ruamel_yaml_clib-0.2.15-cp313-cp313-musllinux_1_2_aarch64.whl", hash = "sha256:ab0df0648d86a7ecbd9c632e8f8d6b21bb21b5fc9d9e095c796cacf32a728d2d", size = 736848, upload-time = "2025-11-16T16:13:37.952Z" },
+    { url = "https://files.pythonhosted.org/packages/0c/5c/5964fcd1fd9acc53b7a3a5d9a05ea4f95ead9495d980003a557deb9769c7/ruamel_yaml_clib-0.2.15-cp313-cp313-musllinux_1_2_i686.whl", hash = "sha256:331fb180858dd8534f0e61aa243b944f25e73a4dae9962bd44c46d1761126bbf", size = 741630, upload-time = "2025-11-16T20:22:51.718Z" },
+    { url = "https://files.pythonhosted.org/packages/07/1e/99660f5a30fceb58494598e7d15df883a07292346ef5696f0c0ae5dee8c6/ruamel_yaml_clib-0.2.15-cp313-cp313-musllinux_1_2_x86_64.whl", hash = "sha256:fd4c928ddf6bce586285daa6d90680b9c291cfd045fc40aad34e445d57b1bf51", size = 766619, upload-time = "2025-11-16T16:13:39.178Z" },
+    { url = "https://files.pythonhosted.org/packages/36/2f/fa0344a9327b58b54970e56a27b32416ffbcfe4dcc0700605516708579b2/ruamel_yaml_clib-0.2.15-cp313-cp313-win32.whl", hash = "sha256:bf0846d629e160223805db9fe8cc7aec16aaa11a07310c50c8c7164efa440aec", size = 100171, upload-time = "2025-11-16T16:13:40.456Z" },
+    { url = "https://files.pythonhosted.org/packages/06/c4/c124fbcef0684fcf3c9b72374c2a8c35c94464d8694c50f37eef27f5a145/ruamel_yaml_clib-0.2.15-cp313-cp313-win_amd64.whl", hash = "sha256:45702dfbea1420ba3450bb3dd9a80b33f0badd57539c6aac09f42584303e0db6", size = 118845, upload-time = "2025-11-16T16:13:41.481Z" },
+]
+
+[[package]]
 name = "s3tokenizer"
 version = "0.3.0"
 source = { registry = "https://pypi.org/simple" }
@@ -3612,6 +3875,34 @@ wheels = [
 ]
 
 [[package]]
+name = "sentencepiece"
+version = "0.2.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/54/83/0664683546ffca8e36653d39d6217c361d931953f40ce28210b56927a9b6/sentencepiece-0.2.3.tar.gz", hash = "sha256:21618ad31f0453a1ebf5ec58defed99758d54af0b670546ecac639ddd8b86fbd", size = 3751846, upload-time = "2026-11-05T05:38:22.108Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/29/ff/2da9d340530f2fdb54449865aeb1eb6b3294a0f88773ac5c856397190594/sentencepiece-0.2.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:51ae35f32ddc832b8ff5f57dd69dae5a814ab6b6e027c83e6f5632335bf21e98", size = 1424612, upload-time = "2026-11-05T05:35:20.926Z" },
+    { url = "https://files.pythonhosted.org/packages/9c/1e/1d29b3b0c6d7c924842f75a99a01722e6fb0faf632834b9108941f4ac8e2/sentencepiece-0.2.3-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:dc4d17ad8728f47062496a7c03e000bb37de9c6741f8423b822d51e4f2f86fcf", size = 1625698, upload-time = "2026-11-05T05:35:24.244Z" },
+    { url = "https://files.pythonhosted.org/packages/14/06/e0d67a135e58a5999429553732bd0f74df5918047b02d012d1cf806419ba/sentencepiece-0.2.3-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:21cb90585b2d9a1cf78c5e889af0a12b35536dc65e2f0ba2daf540c60d431c87", size = 1712355, upload-time = "2026-11-05T05:35:27Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/bb/736b8a6f08294fded810483abfe649ccbf71c2e373548e29913945b7e864/sentencepiece-0.2.3-cp310-cp310-win_amd64.whl", hash = "sha256:901f38530a93e14505bfa3279c8a4705158f30af406bc2721cf3ffd7175170c2", size = 1652913, upload-time = "2026-11-05T05:35:31.454Z" },
+    { url = "https://files.pythonhosted.org/packages/c5/6b/c9028d221ee091978d9960f0337a58cee3e2140d8477b00ae2e25a43568b/sentencepiece-0.2.3-cp310-cp310-win_arm64.whl", hash = "sha256:65f26939063414c5f57a46a625789e9b32f952a800490d5cce6d4c4ad0094fff", size = 1864846, upload-time = "2026-11-05T05:35:37.595Z" },
+    { url = "https://files.pythonhosted.org/packages/37/fa/02579970d01a0e92619967c7c2401839e3f3806fb1852d3bb8ae0e7013c2/sentencepiece-0.2.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:6b94ccd8554338970e1d73959a7e3ed4d110a60dab95d459990b30a508fa0998", size = 1426225, upload-time = "2026-11-05T05:35:44.624Z" },
+    { url = "https://files.pythonhosted.org/packages/c2/4f/6db415ccb1d9508becda7e56092f63f24972dea0605fe94a8c1d9d4b5075/sentencepiece-0.2.3-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:855b047e02fb9c7aae2f673f5c1adbd42a4a0e8ce77e5090d14ff26f9282749d", size = 1626383, upload-time = "2026-11-05T05:35:50.398Z" },
+    { url = "https://files.pythonhosted.org/packages/0f/90/7a01161697ff2a6dc1968a735b7ea7fefd7eb09827d90242923ff76e33fd/sentencepiece-0.2.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:141dc0bef1e28a5cf7e41c8354ad6cc14525758278045286dcb5429b9906d39f", size = 1713961, upload-time = "2026-11-05T05:35:54.276Z" },
+    { url = "https://files.pythonhosted.org/packages/c1/ed/8c25ed68a0e9380813f880b0bc3d986f232191e0989d035253c8deb8cfbf/sentencepiece-0.2.3-cp311-cp311-win_amd64.whl", hash = "sha256:a01e76cf49a0c1abc527c4e5fd6d3a87a3139a1d3ad2d5761567179a70805cce", size = 1653925, upload-time = "2026-11-05T05:35:59.379Z" },
+    { url = "https://files.pythonhosted.org/packages/c8/6b/939dca65c0eee57be23a01c35b0264656dddf3b2fa60b0af8051dd548464/sentencepiece-0.2.3-cp311-cp311-win_arm64.whl", hash = "sha256:ec5c6a53f9f7adfe6e7f62b12696280632c0da2352a696b436ae4152f72ff706", size = 1866592, upload-time = "2026-11-05T05:36:04.684Z" },
+    { url = "https://files.pythonhosted.org/packages/f8/a9/8dbb891f51a80f1f47afa3d5336b165e269c4fa87f47b7fba6fc34a4a6a0/sentencepiece-0.2.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:9b39b16b889c9d3be4f00f1a0a4283ee81ad8af745d48023e5ab18c724019c08", size = 1426879, upload-time = "2026-11-05T05:36:08.906Z" },
+    { url = "https://files.pythonhosted.org/packages/31/26/fb6572cc96090953051089f8e4260a455b6b0c7378bb06fb87725224ce61/sentencepiece-0.2.3-cp312-cp312-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:a6b735a8027b998c163e540fdde66ac0bb95fc471f6f4165c8df35fb45385116", size = 1627109, upload-time = "2026-11-05T05:36:13.057Z" },
+    { url = "https://files.pythonhosted.org/packages/51/72/42952e5b9f254aa2952c04360b38ed614ca4f5600ee2b0cf8e1c0f6661c5/sentencepiece-0.2.3-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:cc3189b79c1ffda767f71b04238c27ac746f3b7abc263eab9a41c4cf46aee49e", size = 1716727, upload-time = "2026-11-05T05:36:17.199Z" },
+    { url = "https://files.pythonhosted.org/packages/b5/78/47be22c27976afed9f88cb9bcdb225abb37991c1ff442a9234e64e7a3d23/sentencepiece-0.2.3-cp312-cp312-win_amd64.whl", hash = "sha256:972af959c63cde446210a8935524806820c253afa4b0a97d83c206b857085f44", size = 1655435, upload-time = "2026-11-05T05:36:21.633Z" },
+    { url = "https://files.pythonhosted.org/packages/e4/5c/6f921049ef4136e360437d370396ac36b927ce1be0184ddbeca50581580d/sentencepiece-0.2.3-cp312-cp312-win_arm64.whl", hash = "sha256:ceaf9a73f7e1672990547e8efe5bb79ea61884a8fe24600662d12e3a8aaf1a5b", size = 1860800, upload-time = "2026-11-05T05:36:26.727Z" },
+    { url = "https://files.pythonhosted.org/packages/4e/86/7ccc32fa2059e6d9217e31fe6d502dcb24a5760013f850292f59b85dc115/sentencepiece-0.2.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:80fe42d6ecd3860ee43327de31687f222af8e93f7d66e248d241cf9a0466eb73", size = 1426935, upload-time = "2026-11-05T05:36:31.447Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/31/a06474a3e0dc8366873fd10b7bbf690b9ad9b00603e02e5f14a370c74ed3/sentencepiece-0.2.3-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:dfc31f9f133a2712d396efa94d666c2ad83d5611ce34f11339429c6831253014", size = 1627113, upload-time = "2026-11-05T05:36:36.653Z" },
+    { url = "https://files.pythonhosted.org/packages/8f/7e/78634050dcac5c3a6aedd6c315b83ce6bd466ccebf68f31a57d8d5655900/sentencepiece-0.2.3-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:4d82f2a0f704f5d0cf027bc8cc5ad49e23c11a9cc0b5bd08ca51985917963bf5", size = 1717008, upload-time = "2026-11-05T05:36:40.505Z" },
+    { url = "https://files.pythonhosted.org/packages/a3/39/41b3c56beb8ced46bfb346a638ca588741fcd10b6e1143d9143787e1c66d/sentencepiece-0.2.3-cp313-cp313-win_amd64.whl", hash = "sha256:84e9def430ca8cc848b84adb304ffb77bff151cfc7dc66eb881f0385258f536b", size = 1655543, upload-time = "2026-11-05T05:36:49.566Z" },
+    { url = "https://files.pythonhosted.org/packages/00/18/12f01c575ea8afaa459959b9f71175c2caa9268639defe367db6d66a89bf/sentencepiece-0.2.3-cp313-cp313-win_arm64.whl", hash = "sha256:01e62cf99d3af7950cff04986c7e58dd4cd376fcf2367cd1c5314182d5f4adc5", size = 1860989, upload-time = "2026-11-05T05:36:56.342Z" },
+]
+
+[[package]]
 name = "setuptools"
 version = "80.10.2"
 source = { registry = "https://pypi.org/simple" }
@@ -3732,6 +4023,39 @@ wheels = [
 ]
 
 [[package]]
+name = "speechbrain"
+version = "1.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "hyperpyyaml" },
+    { name = "joblib" },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.13'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "packaging" },
+    { name = "requests" },
+    { name = "scipy", version = "1.15.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
+    { name = "scipy", version = "1.17.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11' and python_full_version < '3.13'" },
+    { name = "scipy", version = "1.18.1", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "sentencepiece" },
+    { name = "soundfile" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "torchaudio", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/51/7f/4c136fb35f09d9bc93601c0b35a41980d2ab2af9033c1f711926b67635e1/speechbrain-1.1.1.tar.gz", hash = "sha256:3b69d9341662478b3c564837613f7a87bfcfd40d88cd54b4d19d2cca31e3dd3d", size = 1748087, upload-time = "2026-08-27T13:53:10.724Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/08/bd/cb7befa5c2a6bc97b2d260a3481a7b2360c47db0f56ea2d1d2e2816bc3d5/speechbrain-1.1.1-py3-none-any.whl", hash = "sha256:de4f78d3564d40443e11e01648b00b4c47a6f942558c7ab08b5c350264ffcd7c", size = 2313069, upload-time = "2026-08-27T13:53:08.616Z" },
+]
+
+[[package]]
 name = "srsly"
 version = "2.5.6"
 source = { registry = "https://pypi.org/simple" }
@@ -3840,6 +4164,29 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/56/97/b4748951a683e369513691c8eea33d100298d556308dcb0ab66b132a67f0/threadpoolctl-3.8.0.tar.gz", hash = "sha256:01080674ad7ac6182429c918a79de92da789bb448acc02fc0b620b1abd6b6137", size = 39424, upload-time = "2026-11-05T11:08:51.112Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/54/1b/831f2de4840a25db1dd7b1afea433ccafe6bb10aca07e13264f2079462d0/threadpoolctl-3.8.0-py3-none-any.whl", hash = "sha256:f1b49c82704d50f13ffae019c727b0fa4f6791a58f48f06a09c45face1be66da", size = 32091, upload-time = "2026-11-05T11:08:49.773Z" },
+]
+
+[[package]]
+name = "timm"
+version = "1.0.31"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "huggingface-hub" },
+    { name = "pyyaml" },
+    { name = "safetensors" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "torchvision", version = "0.21.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchvision", version = "0.21.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d8/f0/ef613e01647ba8e39d073df11bfe157ea16d0280a9b4a973f1caf0601856/timm-1.0.31.tar.gz", hash = "sha256:baa0b333339c46d3d6d4965d99b69f5053afed71210e8f433d7ea5ee6a18f0ec", size = 2737241, upload-time = "2026-11-03T19:24:56.491Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/aa/bb/b909b8f0517a8fa00ffb3a9a0ddb20da9dbe3554eb68dfc3c9a2db99db76/timm-1.0.31-py3-none-any.whl", hash = "sha256:5bd50f7d0fe6d09bf9285ac2523234a1b7e6bf075c0be3e7aed09139fcb617c7", size = 2798714, upload-time = "2026-11-03T19:24:54.508Z" },
 ]
 
 [[package]]
@@ -4275,6 +4622,177 @@ wheels = [
 ]
 
 [[package]]
+name = "torchvision"
+version = "0.21.0"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "python_full_version >= '3.13' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+    "python_full_version == '3.12.*' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+    "python_full_version == '3.11.*' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+    "python_full_version < '3.11' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.13' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.13' and platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "pillow", marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp310-cp310-linux_aarch64.whl", hash = "sha256:54815e0a56dde95cc6ec952577f67e0dc151eadd928e8d9f6a7f821d69a4a734", upload-time = "2025-01-30T00:40:08Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:044ea420b8c6c3162a234cada8e2025b9076fa82504758cd11ec5d0f8cd9fa37", upload-time = "2025-01-30T00:40:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp311-cp311-linux_aarch64.whl", hash = "sha256:54454923a50104c66a9ab6bd8b73a11c2fc218c964b1006d5d1fe5b442c3dcb6", upload-time = "2025-01-30T00:40:09Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:110d115333524d60e9e474d53c7d20f096dbd8a080232f88dddb90566f90064c", upload-time = "2025-01-30T00:40:10Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp312-cp312-linux_aarch64.whl", hash = "sha256:5083a5b1fec2351bf5ea9900a741d54086db75baec4b1d21e39451e00977f1b1", upload-time = "2025-01-30T00:40:10Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:97a5814a93c793aaf0179cfc7f916024f4b63218929aee977b645633d074a49f", upload-time = "2025-01-30T00:40:11Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp313-cp313-linux_aarch64.whl", hash = "sha256:5045a3a5f21ec3eea6962fa5f2fa2d4283f854caec25ada493fcf4aab2925467", upload-time = "2025-01-30T00:40:11Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:659b76c86757cb2ee4ca2db245e0740cfc3081fef46f0f1064d11adb4a8cee31", upload-time = "2025-01-30T00:40:11Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.21.0"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "python_full_version >= '3.13' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version < '3.11' and sys_platform == 'darwin' and extra == 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+    "python_full_version < '3.11' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm'",
+]
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.13' and sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version < '3.13' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.13' and sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (python_full_version >= '3.13' and extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "pillow", marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a9/20/72eb0b5b08fa293f20fc41c374e37cf899f0033076f0144d2cdc48f9faee/torchvision-0.21.0-1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:5568c5a1ff1b2ec33127b629403adb530fab81378d9018ca4ed6508293f76e2b", size = 2327643, upload-time = "2025-03-18T17:25:51.165Z" },
+    { url = "https://files.pythonhosted.org/packages/4e/3d/b7241abfa3e6651c6e00796f5de2bd1ce4d500bf5159bcbfeea47e711b93/torchvision-0.21.0-1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:ff96666b94a55e802ea6796cabe788541719e6f4905fc59c380fed3517b6a64d", size = 2329320, upload-time = "2025-03-18T17:25:52.272Z" },
+    { url = "https://files.pythonhosted.org/packages/52/5b/76ca113a853b19c7b1da761f8a72cb6429b3bd0bf932537d8df4657f47c3/torchvision-0.21.0-1-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:ffa2a16499508fe6798323e455f312c7c55f2a88901c9a7c0fb1efa86cf7e327", size = 2329878, upload-time = "2025-03-18T17:25:50.039Z" },
+    { url = "https://files.pythonhosted.org/packages/4e/fe/5e193353706dab96fe73ae100d5a633ff635ce310e0d92f3bc2958d075b1/torchvision-0.21.0-1-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:7e9e9afa150e40cd2a8f0701c43cb82a8d724f512896455c0918b987f94b84a4", size = 2280711, upload-time = "2025-03-18T17:25:46.012Z" },
+    { url = "https://files.pythonhosted.org/packages/8e/0d/143bd264876fad17c82096b6c2d433f1ac9b29cdc69ee45023096976ee3d/torchvision-0.21.0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:044ea420b8c6c3162a234cada8e2025b9076fa82504758cd11ec5d0f8cd9fa37", size = 1784140, upload-time = "2025-01-29T16:28:54.122Z" },
+    { url = "https://files.pythonhosted.org/packages/5e/44/32e2d2d174391374d5ff3c4691b802e8efda9ae27ab9062eca2255b006af/torchvision-0.21.0-cp310-cp310-manylinux1_x86_64.whl", hash = "sha256:b0c0b264b89ab572888244f2e0bad5b7eaf5b696068fc0b93e96f7c3c198953f", size = 7237187, upload-time = "2025-01-29T16:28:47.156Z" },
+    { url = "https://files.pythonhosted.org/packages/0e/6b/4fca9373eda42c1b04096758306b7bd55f7d8f78ba273446490855a0f25d/torchvision-0.21.0-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:54815e0a56dde95cc6ec952577f67e0dc151eadd928e8d9f6a7f821d69a4a734", size = 14699067, upload-time = "2025-01-29T16:28:36.086Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/f7/799ddd538b21017cbf80294c92e9efbf6db08dff6efee37c3be114a81845/torchvision-0.21.0-cp310-cp310-win_amd64.whl", hash = "sha256:abbf1d7b9d52c00d2af4afa8dac1fb3e2356f662a4566bd98dfaaa3634f4eb34", size = 1560542, upload-time = "2025-01-29T16:28:52.608Z" },
+    { url = "https://files.pythonhosted.org/packages/29/88/00c69db213ee2443ada8886ec60789b227e06bb869d85ee324578221a7f7/torchvision-0.21.0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:110d115333524d60e9e474d53c7d20f096dbd8a080232f88dddb90566f90064c", size = 1784141, upload-time = "2025-01-29T16:28:51.207Z" },
+    { url = "https://files.pythonhosted.org/packages/be/a2/b0cedf0a411f1a5d75cfc0b87cde56dd1ddc1878be46a42c905cd8580220/torchvision-0.21.0-cp311-cp311-manylinux1_x86_64.whl", hash = "sha256:3891cd086c5071bda6b4ee9d266bb2ac39c998c045c2ebcd1e818b8316fb5d41", size = 7237719, upload-time = "2025-01-29T16:28:20.724Z" },
+    { url = "https://files.pythonhosted.org/packages/8c/a1/ee962ef9d0b2bf7a6f8b14cb95acb70e05cd2101af521032a09e43f8582f/torchvision-0.21.0-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:54454923a50104c66a9ab6bd8b73a11c2fc218c964b1006d5d1fe5b442c3dcb6", size = 14700617, upload-time = "2025-01-29T16:28:30.247Z" },
+    { url = "https://files.pythonhosted.org/packages/88/53/4ad334b9b1d8dd99836869fec139cb74a27781298360b91b9506c53f1d10/torchvision-0.21.0-cp311-cp311-win_amd64.whl", hash = "sha256:49bcfad8cfe2c27dee116c45d4f866d7974bcf14a5a9fbef893635deae322f2f", size = 1560523, upload-time = "2025-01-29T16:28:48.751Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/1b/28f527b22d5e8800184d0bc847f801ae92c7573a8c15979d92b7091c0751/torchvision-0.21.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:97a5814a93c793aaf0179cfc7f916024f4b63218929aee977b645633d074a49f", size = 1784140, upload-time = "2025-01-29T16:28:44.694Z" },
+    { url = "https://files.pythonhosted.org/packages/36/63/0722e153fd27d64d5b0af45b5c8cb0e80b35a68cf0130303bc9a8bb095c7/torchvision-0.21.0-cp312-cp312-manylinux1_x86_64.whl", hash = "sha256:b578bcad8a4083b40d34f689b19ca9f7c63e511758d806510ea03c29ac568f7b", size = 7238673, upload-time = "2025-01-29T16:28:27.631Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/ea/03541ed901cdc30b934f897060d09bbf7a98466a08ad1680320f9ce0cbe0/torchvision-0.21.0-cp312-cp312-manylinux_2_28_aarch64.whl", hash = "sha256:5083a5b1fec2351bf5ea9900a741d54086db75baec4b1d21e39451e00977f1b1", size = 14701186, upload-time = "2025-01-29T16:28:16.491Z" },
+    { url = "https://files.pythonhosted.org/packages/4c/6a/c7752603060d076dfed95135b78b047dc71792630cbcb022e3693d6f32ef/torchvision-0.21.0-cp312-cp312-win_amd64.whl", hash = "sha256:6eb75d41e3bbfc2f7642d0abba9383cc9ae6c5a4ca8d6b00628c225e1eaa63b3", size = 1560520, upload-time = "2025-01-29T16:28:42.122Z" },
+    { url = "https://files.pythonhosted.org/packages/f9/56/47d456b61c3bbce7bed4af3925c83d405bb87468e659fd3cf3d9840c3b51/torchvision-0.21.0-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:659b76c86757cb2ee4ca2db245e0740cfc3081fef46f0f1064d11adb4a8cee31", size = 1784141, upload-time = "2025-01-29T16:28:39.01Z" },
+    { url = "https://files.pythonhosted.org/packages/cb/4c/99880813aa50e64447fb1c4c6c804a793d2d78f7f7c53e99ddee7fa175fa/torchvision-0.21.0-cp313-cp313-manylinux1_x86_64.whl", hash = "sha256:084ac3f5a1f50c70d630a488d19bf62f323018eae1b1c1232f2b7047d3a7b76d", size = 7238714, upload-time = "2025-01-29T16:28:25.658Z" },
+    { url = "https://files.pythonhosted.org/packages/0b/2d/3c3ee10608310a395594aac7da8640372ed79c6585910ccae6919658dcdc/torchvision-0.21.0-cp313-cp313-manylinux_2_28_aarch64.whl", hash = "sha256:5045a3a5f21ec3eea6962fa5f2fa2d4283f854caec25ada493fcf4aab2925467", size = 2281252, upload-time = "2025-01-29T16:28:40.687Z" },
+    { url = "https://files.pythonhosted.org/packages/ed/b4/fc60e3bc003879d3de842baea258fffc3586f4b49cd435a5ba1e09c33315/torchvision-0.21.0-cp313-cp313-win_amd64.whl", hash = "sha256:9147f5e096a9270684e3befdee350f3cacafd48e0c54ab195f45790a9c146d67", size = 1560519, upload-time = "2025-01-29T16:28:22.527Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.21.0+cpu"
+source = { registry = "https://download.pytorch.org/whl/cpu" }
+resolution-markers = [
+    "python_full_version >= '3.13' and sys_platform == 'win32'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten'",
+    "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version >= '3.13' and platform_python_implementation != 'CPython' and sys_platform == 'linux') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten'",
+    "(python_full_version == '3.12.*' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version == '3.12.*' and platform_python_implementation != 'CPython' and sys_platform == 'linux') or (python_full_version == '3.12.*' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "python_full_version == '3.11.*' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten'",
+    "(python_full_version == '3.11.*' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version == '3.11.*' and platform_python_implementation != 'CPython' and sys_platform == 'linux') or (python_full_version == '3.11.*' and sys_platform != 'darwin' and sys_platform != 'emscripten' and sys_platform != 'linux' and sys_platform != 'win32')",
+    "(python_full_version < '3.11' and platform_machine != 'aarch64' and sys_platform == 'linux') or (python_full_version < '3.11' and platform_python_implementation != 'CPython' and sys_platform == 'linux') or (python_full_version < '3.11' and sys_platform != 'darwin' and sys_platform != 'linux')",
+]
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (python_full_version < '3.13' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (python_full_version < '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.13' and platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (python_full_version >= '3.13' and platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (python_full_version >= '3.13' and sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "pillow", marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp310-cp310-linux_x86_64.whl", hash = "sha256:4ed0a1be50676a7c589ba83b62c9dc0267a87e852b8cd9b7d6db27ab36c6d552", upload-time = "2025-01-30T00:40:05Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp310-cp310-win_amd64.whl", hash = "sha256:554ca0f5948ac89911299f8bfb6f23936d867387ea213ab235adc2814b510d0c", upload-time = "2025-01-30T00:40:06Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp311-cp311-linux_x86_64.whl", hash = "sha256:d67081026aad9642c46d3b14035f8ae69117468c09a07d628f3eafc7ae74841f", upload-time = "2025-01-30T00:40:06Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp311-cp311-win_amd64.whl", hash = "sha256:852b96738a68592223f01a04e4bcc1b3906bef7eee41c99f27f3be5706046862", upload-time = "2025-01-30T00:40:06Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp312-cp312-linux_x86_64.whl", hash = "sha256:d6874431e678ba107b60a83f255c33f3755f06bad587b1b919aa514ec325dcd8", upload-time = "2025-01-30T00:40:06Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp312-cp312-win_amd64.whl", hash = "sha256:667f3d983240f41eaff5a3f78bdcbc144473978a37cd15a4db6dad92b1e8b6f0", upload-time = "2025-01-30T00:40:07Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp313-cp313-linux_x86_64.whl", hash = "sha256:a76478c0f547e032116282d61a5a7d943142cf040f6c7d97941d7e96813c4c14", upload-time = "2025-01-30T00:40:07Z" },
+    { url = "https://download-r2.pytorch.org/whl/cpu/torchvision-0.21.0%2Bcpu-cp313-cp313-win_amd64.whl", hash = "sha256:883f8668b923781f1152a20d75e75ad94a4f1016328d86a7b889006a9156fb14", upload-time = "2025-01-30T00:40:07Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.21.0+cu124"
+source = { registry = "https://download.pytorch.org/whl/cu124" }
+resolution-markers = [
+    "python_full_version >= '3.13' and sys_platform == 'win32'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version < '3.11'",
+]
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.13' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.13' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "pillow", marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp310-cp310-linux_x86_64.whl", hash = "sha256:3d3e74018eaa7837c73e3764dad3b7792b7544401c25a42977e9744303731bd3", upload-time = "2025-01-30T01:04:28Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp310-cp310-win_amd64.whl", hash = "sha256:0c6aefb70ab2b312065240c804e459ac7b0e449867afd469b38d2fd47f9391a7", upload-time = "2025-01-30T01:04:28Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp311-cp311-linux_x86_64.whl", hash = "sha256:137376805aca5ba57bd2c7a3ecb8569df961dbe82b128aac9b3b0a7125ef9385", upload-time = "2025-01-30T01:04:28Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp311-cp311-win_amd64.whl", hash = "sha256:000a013584ad2304ab30496318145f284ac364622addb5ee3a5abd2769ba146f", upload-time = "2025-01-30T01:04:29Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp312-cp312-linux_x86_64.whl", hash = "sha256:efb53ea0af7bf09b7b53e2a18b9be6d245f7d46a90b51d5cf97f37e9b929a991", upload-time = "2025-01-30T01:04:29Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp312-cp312-win_amd64.whl", hash = "sha256:ec63c2ee792757492da40590e34b14f2fceda29050558c215f0c1f3b08149c0f", upload-time = "2025-01-30T01:04:30Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp313-cp313-linux_x86_64.whl", hash = "sha256:4b70acf3b4b96a0ceb1374116626c9bef9e8be016b57b1284e482260ca1896d6", upload-time = "2025-01-30T01:04:30Z" },
+    { url = "https://download-r2.pytorch.org/whl/cu124/torchvision-0.21.0%2Bcu124-cp313-cp313-win_amd64.whl", hash = "sha256:8fcf55321b206de70ff8e01c884fa42e57a60b1cb749341b96e0f22c8a7c9ec7", upload-time = "2025-01-30T01:04:31Z" },
+]
+
+[[package]]
+name = "torchvision"
+version = "0.21.0+rocm6.2.4"
+source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }
+resolution-markers = [
+    "python_full_version >= '3.13' and sys_platform == 'win32'",
+    "python_full_version >= '3.13' and sys_platform == 'emscripten'",
+    "python_full_version >= '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'win32'",
+    "python_full_version == '3.12.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.12.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'win32'",
+    "python_full_version == '3.11.*' and sys_platform == 'emscripten'",
+    "python_full_version == '3.11.*' and sys_platform != 'emscripten' and sys_platform != 'win32'",
+    "python_full_version < '3.11'",
+]
+dependencies = [
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version < '3.13' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "(python_full_version >= '3.13' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "pillow", marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+]
+wheels = [
+    { url = "https://download-r2.pytorch.org/whl/rocm6.2.4/torchvision-0.21.0%2Brocm6.2.4-cp310-cp310-linux_x86_64.whl", hash = "sha256:739210181b0f8f56fe516cc4f78dd1a0a6c2f997b4d72fb3a00eeebee5e52292", upload-time = "2025-01-30T19:44:57Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm6.2.4/torchvision-0.21.0%2Brocm6.2.4-cp311-cp311-linux_x86_64.whl", hash = "sha256:35570a77de052c2fb4eb77a6ddd8dc27307162ad7dcef27f18853d92f3086f43", upload-time = "2025-01-30T19:44:57Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm6.2.4/torchvision-0.21.0%2Brocm6.2.4-cp312-cp312-linux_x86_64.whl", hash = "sha256:d63f6aeffc89c85ce20f6d0cdc9fb636bdf96fc7760dcecde8a5d2b6b8f1470c", upload-time = "2025-01-30T19:44:58Z" },
+    { url = "https://download-r2.pytorch.org/whl/rocm6.2.4/torchvision-0.21.0%2Brocm6.2.4-cp313-cp313-linux_x86_64.whl", hash = "sha256:a3e3cc942b54a6f0d3f26a402d26e0c9f3e657310558288f7219ccf67adaf7f2", upload-time = "2025-01-30T19:44:58Z" },
+]
+
+[[package]]
 name = "tqdm"
 version = "4.70.1"
 source = { registry = "https://pypi.org/simple" }
@@ -4384,6 +4902,29 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz", hash = "sha256:63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63", size = 458972, upload-time = "2026-09-15T19:29:36.253Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl", hash = "sha256:0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3", size = 135717, upload-time = "2026-09-15T19:29:34.577Z" },
+]
+
+[[package]]
+name = "utmosv2"
+version = "1.3.1.dev0"
+source = { git = "https://github.com/sarulab-speech/UTMOSv2.git?rev=cc2700db57bb83ee13dc31ebe1b868c254e15d09#cc2700db57bb83ee13dc31ebe1b868c254e15d09" }
+dependencies = [
+    { name = "librosa" },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.13'" },
+    { name = "numpy", version = "2.5.4", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.13'" },
+    { name = "timm" },
+    { name = "torch", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(sys_platform != 'darwin' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torch", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "torchaudio", version = "2.6.0", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine == 'aarch64' and platform_python_implementation == 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0", source = { registry = "https://pypi.org/simple" }, marker = "(sys_platform == 'darwin' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm') or (extra != 'extra-14-fanfare-studio-cpu' and extra != 'extra-14-fanfare-studio-cuda' and extra != 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+cpu", source = { registry = "https://download.pytorch.org/whl/cpu" }, marker = "(platform_machine != 'aarch64' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (platform_python_implementation != 'CPython' and sys_platform == 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (sys_platform != 'darwin' and sys_platform != 'linux' and extra == 'extra-14-fanfare-studio-cpu') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda') or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm') or (extra == 'extra-14-fanfare-studio-cuda' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+cu124", source = { registry = "https://download.pytorch.org/whl/cu124" }, marker = "extra == 'extra-14-fanfare-studio-cuda' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-rocm')" },
+    { name = "torchaudio", version = "2.6.0+rocm6.2.4", source = { registry = "https://download.pytorch.org/whl/rocm6.2.4" }, marker = "extra == 'extra-14-fanfare-studio-rocm' or (extra == 'extra-14-fanfare-studio-cpu' and extra == 'extra-14-fanfare-studio-cuda')" },
+    { name = "tqdm" },
+    { name = "transformers" },
+    { name = "typing-extensions" },
 ]
 
 [[package]]

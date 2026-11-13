@@ -1,0 +1,19 @@
+# Fanfare Studio quality evaluation / tuning config (dev tooling; `fanfare-studio eval|tune`).
+
+[weights]          # combined score = sum(weight * feature), features in [0, 1], larger = better
+asr = 0.35         # 1 - CER of the Whisper round trip
+lang = 0.15        # Whisper P(target language): accent proxy
+mos = 0.35         # UTMOSv2 naturalness, (MOS - 1) / 4
+spk = 0.10         # ECAPA cosine similarity to the reference clip
+edges = 0.05       # penalty for leading (> 0.2 s) / trailing (> 0.4 s) non-speech
+
+[filters]
+max_cer = 0.15     # clips above are rejected; any prefix flag rejects too
+
+[whisper]
+model = "small"    # faster-whisper model: tiny, base, small, medium
+
+[judge]            # optional LLM judge; no network traffic unless enabled; localhost only
+enabled = false
+url = "http://127.0.0.1:8000/v1"
+model = "Qwen/Qwen2.5-Omni-7B"
