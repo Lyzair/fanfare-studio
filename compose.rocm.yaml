@@ -1,4 +1,7 @@
-# AMD GPU override (PyTorch ROCm; Chatterbox on torch). EXPERIMENTAL.
+# AMD GPU override (PyTorch ROCm; Chatterbox on torch). EXPERIMENTAL / NOT VERIFIED END TO END:
+# the GPU was visible in the container ("loading model on ROCm ... AMD Radeon") but the first run
+# stopped on a read-only $HOME (fixed by the /home/fanfare tmpfs in compose.yaml, not re-run: the
+# image is ~19 GB and the build+download takes ~15 min).
 #   export VIDEO_GID=$(getent group video | cut -d: -f3) RENDER_GID=$(getent group render | cut -d: -f3)
 #   docker compose -f compose.yaml -f compose.rocm.yaml up -d --build
 # Note: ONNX Runtime on ROCm produced garbled audio in our tests, hence the torch backend here.

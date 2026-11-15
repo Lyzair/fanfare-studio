@@ -24,6 +24,7 @@ services:
     read_only: true
     tmpfs:
       - /tmp
+      - /home/fanfare:uid=10001,gid=10001   # some libraries (chatterbox torch: pkuseg) write caches to $HOME
     cap_drop: [ALL]
     security_opt:
       - no-new-privileges:true

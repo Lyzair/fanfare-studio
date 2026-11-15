@@ -135,7 +135,7 @@ docker compose ps                       # healthy once /voices answers
 - **GPU variants (experimental)**: `docker compose -f compose.yaml -f compose.rocm.yaml up -d --build`
   (AMD, ROCm PyTorch, `/dev/kfd` + `/dev/dri`, torch Chatterbox backend; the image is several GB)
   and `compose.cuda.yaml` (NVIDIA, `gpus: all`; **untested**, no NVIDIA hardware available). ROCm
-  status: see the Round 6 note in the PoC report. These are not recommended: CPU ONNX 4-bit sounded
+  status: GPU visible in the container but not verified end to end (image ~19 GB), see the Round 6 note in the PoC report. These are not recommended: CPU ONNX 4-bit sounded
   best.
 - **With the Fanfare web app**: the web repo's `compose.studio.yaml` runs the app and this server
   together (the app's origin is passed to the server through `FANFARE_ALLOWED_ORIGINS`).
