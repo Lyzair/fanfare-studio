@@ -71,8 +71,14 @@ jobs:
           AMD (ROCm) and NVIDIA (CUDA) images are not published; build them yourself (manual, section 8).
 
           EOF
-          gh release create "$TAG" release/* --repo "$GITHUB_REPOSITORY" --title "Fanfare Studio $VERSION" \
-            --notes-file notes.md --generate-notes --verify-tag
+          # a release for this tag may already exist (made on github.com, or a re-run): add to it instead
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" release/* --repo "$GITHUB_REPOSITORY" --clobber
+            gh release edit "$TAG" --repo "$GITHUB_REPOSITORY" --title "Fanfare Studio $VERSION" --notes-file notes.md
+          else
+            gh release create "$TAG" release/* --repo "$GITHUB_REPOSITORY" --title "Fanfare Studio $VERSION" \
+              --notes-file notes.md --generate-notes --verify-tag
+          fi
 
   image:
     needs: packages
