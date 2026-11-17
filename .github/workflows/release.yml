@@ -1,0 +1,117 @@
+name: Release
+
+# Push a tag v<version> (the version in pyproject.toml) to publish:
+#  - a GitHub release with fanfare-studio-<version>.zip and .tar.gz (start files + manuals inside)
+#  - the CPU image ghcr.io/<owner>/fanfare-studio for amd64 and arm64
+# The ROCm and CUDA images are not published: build them yourself (README, "Run with Docker").
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  packages:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+      - name: Tag matches pyproject.toml
+        run: python3 scripts/check_tag.py "$GITHUB_REF"
+      - name: Install (CPU, as the start files and the image)
+        run: uv sync --frozen --extra onnx --extra cpu
+      - name: Tests
+        run: uv run --frozen --extra onnx --extra cpu pytest
+      - name: The unpacked package starts (mock backend)
+        run: uv run --frozen --extra onnx --extra cpu pytest -m slow tests/test_package.py
+      - name: Package
+        run: uv run --frozen --extra onnx --extra cpu python scripts/package.py
+      - name: Checksums
+        run: cd release && sha256sum -- *.zip *.tar.gz > SHA256SUMS
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          path: release/
+          if-no-files-found: error
+
+  publish:
+    needs: packages
+    runs-on: ubuntu-latest
+    # only this job writes to the repository (creates the release)
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+          path: release
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          IMAGE: ghcr.io/${{ github.repository_owner }}/fanfare-studio
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          VERSION="${TAG#v}"
+          IMAGE="${IMAGE,,}"
+          cat > notes.md <<EOF
+          ## Download
+
+          \`fanfare-studio-${VERSION}.zip\` (or \`.tar.gz\`): install [uv](https://docs.astral.sh/uv/getting-started/installation/) once,
+          unpack, then double-click \`start-studio.bat\` (Windows) / \`start-studio.command\` (macOS) or run \`./start-studio.sh\` (Linux).
+          The first start downloads about 1.6 GB of voice model. Manual inside: \`docs/manual/en.md\`, \`docs/manual/de.md\`
+          ([online](${REPO_URL}/blob/${TAG}/docs/manual/en.md)). \`SHA256SUMS\` lists the checksums.
+
+          **Docker (CPU, amd64 and arm64):** \`${IMAGE}:${VERSION}\`, see the manual, section 7.
+          AMD (ROCm) and NVIDIA (CUDA) images are not published; build them yourself (manual, section 8).
+
+          EOF
+          gh release create "$TAG" release/* --repo "$GITHUB_REPOSITORY" --title "Fanfare Studio $VERSION" \
+            --notes-file notes.md --generate-notes --verify-tag
+
+  image:
+    needs: packages
+    runs-on: ubuntu-latest
+    # only this job publishes the container image
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Free disk space (PyTorch layers are large)
+        run: sudo rm -rf /usr/share/dotnet /opt/ghc /usr/local/lib/android /opt/hostedtoolcache/CodeQL
+      - uses: actions/checkout@v7
+      - uses: docker/setup-qemu-action@v4
+      - uses: docker/setup-buildx-action@v4
+      - uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+      - id: meta
+        uses: docker/metadata-action@v6
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/fanfare-studio
+          labels: |
+            org.opencontainers.image.title=Fanfare Studio
+            org.opencontainers.image.description=Local text-to-speech server for Fanfare (Chatterbox 4-bit ONNX on CPU)
+            org.opencontainers.image.licenses=MIT
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=raw,value=latest
+      - uses: docker/build-push-action@v7
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          build-args: |
+            TORCH_EXTRA=cpu
+            EXTRAS=onnx

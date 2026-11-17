@@ -112,3 +112,12 @@ def test_manual_mentions(lang):
     for needle in ("start-studio", "lyzair.github.io", "--consent", "compose.rocm.yaml", "compose.cuda.yaml",
                    "ghcr.io/lyzair/fanfare-studio", "127.0.0.1:5123:5123"):
         assert needle in text, needle
+
+
+def test_tag_matches():
+    import check_tag
+
+    assert check_tag.tag_matches("refs/tags/v1.0.0", "1.0.0")
+    assert check_tag.tag_matches("v1.0.0", "1.0.0")
+    for ref in ("v1.0", "v1.0.1", "1.0.0", "refs/tags/v1.0.0-rc1", "refs/heads/v1.0.0", ""):
+        assert not check_tag.tag_matches(ref, "1.0.0"), ref
