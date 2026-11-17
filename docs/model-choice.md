@@ -1,6 +1,6 @@
 # Model choice
 
-Researched 2026-11-13 for the Fanfare Studio proof of concept (local TTS companion of the
+Researched 2026-11-13 for the first version of Fanfare Studio (local TTS companion of the
 Fanfare browser app).
 
 ## Requirements
@@ -32,7 +32,7 @@ Notes:
   of every backend, Piper included; `resemble-perth` is a required dependency). That does not restrict use; it marks the audio as AI-generated,
   which we consider a feature and should mention in the app.
 - The Chatterbox default speaker is a single built-in English reference voice. In other
-  languages it speaks with that timbre; quality in German was checked by ear in the PoC run
+  languages it speaks with that timbre; quality in German was checked by ear in our listening tests
   (see report). A real project can ship one CC0/consented reference clip per language
   (Chatterbox is zero-shot voice cloning) — **never let users clone third-party voices
   without consent**.

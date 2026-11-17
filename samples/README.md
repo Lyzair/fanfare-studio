@@ -1,6 +1,6 @@
 # Samples (round 2)
 
-Audio files are git-ignored; regenerate with `scripts/render.py` (commands in the PoC report).
+Audio files are git-ignored; regenerate with `scripts/render.py` (options: `uv run python scripts/render.py --help`).
 Sentences: de "Und jetzt, mit der Nummer 7: Lea! Viel Spaß und gib alles!",
 en "And now, wearing number 7: Lea! Have fun and give it everything!".
 Machine: Ryzen 7 5800X3D (8 cores), RX 7900 XTX (ROCm 6.2 torch wheel). Generation seconds are

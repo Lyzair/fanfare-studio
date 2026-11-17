@@ -71,8 +71,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--out", default="release")
     root = Path(__file__).resolve().parents[1]
-    for p in build(root, root / ap.parse_args().out):
-        print(f"{p.relative_to(root)}: {p.stat().st_size / 1048576:.1f} MiB")
+    for p in build(root, root / ap.parse_args().out):  # an absolute --out stays absolute
+        print(f"{p}: {p.stat().st_size / 1048576:.1f} MiB")
 
 
 if __name__ == "__main__":

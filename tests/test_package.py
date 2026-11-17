@@ -121,3 +121,10 @@ def test_tag_matches():
     assert check_tag.tag_matches("v1.0.0", "1.0.0")
     for ref in ("v1.0", "v1.0.1", "1.0.0", "refs/tags/v1.0.0-rc1", "refs/heads/v1.0.0", ""):
         assert not check_tag.tag_matches(ref, "1.0.0"), ref
+
+
+def test_build_into_a_folder_outside_the_repository(tmp_path):
+    r = subprocess.run([sys.executable, str(ROOT / "scripts" / "package.py"), "--out", str(tmp_path)],
+                       capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    assert "fanfare-studio-" in r.stdout
