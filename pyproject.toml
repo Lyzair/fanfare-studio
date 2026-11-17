@@ -1,6 +1,6 @@
 [project]
 name = "fanfare-studio"
-version = "0.1.0"
+version = "1.0.0"
 description = "Local text-to-speech server for the Fanfare browser app (proof of concept)"
 readme = "README.md"
 license = "MIT"
@@ -51,6 +51,9 @@ packages = ["src/fanfare_studio"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# slow: builds and starts the release package (downloads dependencies); run with  pytest -m slow
+markers = ["slow: builds and starts the release package"]
+addopts = "-m 'not slow'"
 
 # --- PyTorch wheel selection --------------------------------------------------
 # macOS: plain PyPI torch (MPS built in) -> use `--extra chatterbox --extra cpu`.
