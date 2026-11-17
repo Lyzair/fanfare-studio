@@ -36,6 +36,8 @@ CPU image for PCs and ARM computers. AMD (ROCm) and NVIDIA (CUDA) versions: buil
 ## Privacy and security
 
 - Reachable from this computer only (`127.0.0.1`); nothing is uploaded.
+- The first start downloads the voice model from Hugging Face (with their telemetry switched off). To run fully
+  offline afterwards, start it with the environment variable `HF_HUB_OFFLINE=1`.
 - Only websites you allowed may use it; the window asks the first time.
 - Logs never contain names or texts.
 - Every clip carries an inaudible watermark that marks it as AI-generated.
