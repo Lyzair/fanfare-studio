@@ -8,7 +8,8 @@ services:
       args:
         TORCH_EXTRA: cpu
         EXTRAS: onnx
-    image: fanfare-studio:local
+    # FANFARE_STUDIO_IMAGE=ghcr.io/lyzair/fanfare-studio:1 with --no-build uses the published image
+    image: ${FANFARE_STUDIO_IMAGE:-fanfare-studio:local}
     ports:
       - "127.0.0.1:5123:5123"
     environment:

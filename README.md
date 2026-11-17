@@ -6,7 +6,17 @@ in which sports clubs announce their lineups. Fanfare calls Fanfare Studio on
 You prepare the clips at home, Fanfare stores them and puts them into its export zip, and on
 game day the phone plays them **without** Fanfare Studio.
 
-Status: proof of concept. No installer, no GUI. Licence: MIT.
+Status: 1.0. No installer, no GUI. Licence: MIT.
+
+## Download
+
+Get `fanfare-studio-<version>.zip` (or `.tar.gz`) from the
+[latest release](https://github.com/Lyzair/fanfare-studio/releases/latest), install
+[uv](https://docs.astral.sh/uv/getting-started/installation/) once, unpack, and double-click
+`start-studio.bat` (Windows) / `start-studio.command` (macOS), or run `./start-studio.sh` (Linux).
+Beginner manual: [English](docs/manual/en.md), [Deutsch](docs/manual/de.md) (also in the package).
+
+Docker (CPU, amd64 and arm64): `ghcr.io/lyzair/fanfare-studio:1`; see "Run with Docker" below.
 
 ## Privacy
 
@@ -98,7 +108,7 @@ uv run fanfare-studio --ep openvino                     # try an execution provi
 uv run fanfare-studio --backend chatterbox --device rocm   # experimental PyTorch path
 uv run fanfare-studio --backend piper --voices-dir models/piper
 uv run fanfare-studio --backend mock --port 5999
-uv run fanfare-studio --allow-origin https://<user>.github.io   # allow a Fanfare site for this run
+uv run fanfare-studio --allow-origin https://lyzair.github.io   # allow a Fanfare site for this run
 uv run fanfare-studio --version
 ```
 
@@ -110,6 +120,14 @@ Comparisons with explicit settings: `uv run python scripts/render.py --help`.
 Default image: Chatterbox 4-bit ONNX on CPU (the recommended path, best quality in our listening
 tests). Needs Docker with Compose; the first start downloads ~3 GB of models into the `models`
 volume.
+
+Ready-made image (published with every release; CPU, `linux/amd64` and `linux/arm64`):
+
+```sh
+FANFARE_STUDIO_IMAGE=ghcr.io/lyzair/fanfare-studio:1 docker compose up -d --no-build
+```
+
+Or build it yourself:
 
 ```sh
 docker compose up -d --build            # http://127.0.0.1:5123
@@ -123,8 +141,8 @@ docker compose ps                       # healthy once /voices answers
 - **Allowed websites** (the origin rules are unchanged; localhost origins always work): there is
   no interactive prompt in a container. Either set `FANFARE_ALLOWED_ORIGINS` (comma-separated,
   exact scheme + host + port, no wildcards):
-  `FANFARE_ALLOWED_ORIGINS=https://you.github.io docker compose up -d`, or persist one with
-  `docker compose exec fanfare-studio fanfare-studio allow https://you.github.io` (stored in the
+  `FANFARE_ALLOWED_ORIGINS=https://lyzair.github.io docker compose up -d`, or persist one with
+  `docker compose exec fanfare-studio fanfare-studio allow https://lyzair.github.io` (stored in the
   `config` volume; restart the container to apply).
 - **Volumes**: `models` (downloads, `/models`), `references` (club voices, `/data`; add them over
   `POST /references`, or `docker compose exec fanfare-studio fanfare-studio voice add ...` with the
@@ -137,6 +155,12 @@ docker compose ps                       # healthy once /voices answers
   and `compose.cuda.yaml` (NVIDIA, `gpus: all`; **untested**, no NVIDIA hardware available). ROCm
   status: GPU visible in the container but not verified end to end (image ~19 GB), see the Round 6 note in the PoC report. These are not recommended: CPU ONNX 4-bit sounded
   best.
+- **Build the ROCm or CUDA version yourself**: only the CPU image is published (the ROCm image is
+  about 19 GB, and CPU sounded best). AMD (Linux):
+  `export VIDEO_GID=$(getent group video | cut -d: -f3) RENDER_GID=$(getent group render | cut -d: -f3)`, then
+  `docker compose -f compose.yaml -f compose.rocm.yaml up -d --build`. NVIDIA (needs the NVIDIA Container Toolkit):
+  `docker compose -f compose.yaml -f compose.cuda.yaml up -d --build`. Without Docker: `uv sync --extra chatterbox --extra rocm`
+  (or `--extra cuda`), then `uv run fanfare-studio --backend chatterbox`.
 - **With the Fanfare web app**: the web repo's `compose.studio.yaml` runs the app and this server
   together (the app's origin is passed to the server through `FANFARE_ALLOWED_ORIGINS`).
 - Smoke test: `scripts/docker-smoke.sh` (build, start, health, origin 200/403, German clip, `down -v`).
@@ -197,7 +221,7 @@ The contract Fanfare is built against:
   - built in: `http://localhost:<any port>` and `http://127.0.0.1:<any port>` (local Fanfare
     development and `vite preview`);
   - your list, e.g. the Fanfare site you use:
-    `uv run fanfare-studio allow https://<user>.github.io` (exact scheme + host + port; no
+    `uv run fanfare-studio allow https://lyzair.github.io` (exact scheme + host + port; no
     wildcards), `fanfare-studio allowed` to list, `fanfare-studio disallow <origin>` to remove.
     Stored in the user config folder (Linux `~/.config/fanfare-studio/allowed-origins.toml`);
   - `--allow-origin URL` (repeatable) for one run.
